@@ -10,6 +10,18 @@ Na raiz do projeto consumidor:
 /caminho/para/sld/install.sh
 ```
 
+Depois que este repositorio estiver publicado no GitHub, tambem e possivel instalar remoto:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/<owner>/<repo>/main/install.sh | bash -s -- <owner>/<repo>
+```
+
+Ou usando variavel de ambiente:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/<owner>/<repo>/main/install.sh | SLD_GITHUB_REPO=<owner>/<repo> bash
+```
+
 Isso cria ou atualiza:
 
 ```text
@@ -28,6 +40,7 @@ Por padrao, os artefatos de trabalho ficam em `docs/tracks`, `docs/adrs`, `docs/
 
 ```bash
 SLD_TARGET_DIR=/repo/consumidor /caminho/para/sld/install.sh
+curl -fsSL https://raw.githubusercontent.com/owner/repo/main/install.sh | SLD_GITHUB_REPO=owner/repo bash
 SLD_INSTALL_AGENTS=1 /caminho/para/sld/install.sh
 SLD_FORCE=1 /caminho/para/sld/install.sh
 SLD_FORCE_CONFIG=1 /caminho/para/sld/install.sh
@@ -35,6 +48,9 @@ SLD_TRACKS_ROOT=work/tracks /caminho/para/sld/install.sh
 ```
 
 - `SLD_TARGET_DIR`: projeto onde o framework sera instalado. Padrao: diretorio atual.
+- `SLD_GITHUB_REPO`: repositorio `owner/repo` usado quando o instalador roda via `curl | bash`.
+- `SLD_REF`: branch/ref para instalacao remota. Padrao: `main`.
+- `SLD_ARCHIVE_URL`: URL completa para um `.tar.gz`; sobrescreve `SLD_GITHUB_REPO` e `SLD_REF`.
 - `SLD_INSTALL_AGENTS=1`: copia `AGENTS.md` para a raiz do projeto se nao existir.
 - `SLD_FORCE=1`: permite sobrescrever `AGENTS.md` quando `SLD_INSTALL_AGENTS=1`.
 - `SLD_FORCE_CONFIG=1`: permite sobrescrever `.sld/config.yaml`; sem isso, configuracao existente e preservada.

@@ -16,7 +16,7 @@ Cria uma nova track SLD com nome no padrao `<unix-timestamp-seconds>-name`, defi
 ## Entrada recomendada
 
 - `context`: problema atual.
-- `constraints`: limites tecnicos/produto.
+- `constraints`: limites tecnicos, operacionais ou de negocio.
 - `non_goals`: o que nao sera tratado agora.
 
 ## Regras de decisao

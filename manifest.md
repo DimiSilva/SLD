@@ -4,7 +4,7 @@
 
 **SLD — Slice-Led Development** é uma metodologia de desenvolvimento pensada para fluxos de trabalho assistidos por IA, onde o progresso é conduzido por pequenos incrementos chamados **slices**.
 
-Em vez de organizar o desenvolvimento em torno de uma especificação fechada de feature, o SLD organiza o trabalho em torno de **tracks evolutivas**. Cada track representa uma linha contínua de evolução do sistema, produto, arquitetura, experiência ou qualidade. Essa track é avançada por slices pequenos, validáveis e cumulativos.
+Em vez de organizar o desenvolvimento em torno de uma especificacao fechada de entrega, o SLD organiza o trabalho em torno de **tracks evolutivas**. Cada track representa uma linha contínua de evolução do sistema, produto, arquitetura, experiência ou qualidade. Essa track é avançada por slices pequenos, validáveis e cumulativos.
 
 A ideia central é:
 
@@ -16,7 +16,7 @@ O SLD propõe um modelo mais incremental, evolutivo e orientado a aprendizado.
 
 ---
 
-## 1.1 Regra normativa de precedencia (V2)
+## 1.1 Regra normativa de precedencia
 
 A partir desta revisao, o fluxo operacional oficial do SLD e:
 
@@ -24,11 +24,7 @@ A partir desta revisao, o fluxo operacional oficial do SLD e:
 sld.slice.create -> (ajustes livres) -> sld.slice.plan-tasks -> (ajustes livres) -> sld.slice.implement -> (ajustes livres) -> sld.slice.close
 ```
 
-Regras:
-
-- `sld.step.plan` e `sld.step.run` sao legadas/deprecadas.
-- secoes antigas deste manifesto que descrevem fluxo por step devem ser tratadas como historico de transicao.
-- em caso de conflito entre secoes, esta secao e o capitulo `## 6. Fluxo operacional atual` prevalecem.
+Em caso de conflito entre secoes, esta secao e o capitulo `## 6. Fluxo operacional atual` prevalecem.
 
 ## 2. Motivação
 
@@ -38,7 +34,7 @@ Fluxos tradicionais de desenvolvimento orientado por especificação geralmente 
 spec → clarify → plan → tasks → implement
 ```
 
-Esse modelo funciona bem quando a feature é relativamente bem delimitada e quando a especificação representa um contrato claro do que precisa ser construído.
+Esse modelo funciona bem quando a entrega e relativamente bem delimitada e quando a especificação representa um contrato claro do que precisa ser construído.
 
 No entanto, em fluxos reais com IA, alguns problemas aparecem:
 
@@ -59,7 +55,7 @@ O SLD tenta resolver esses problemas usando uma unidade menor e mais controláve
 
 Uma **track** é uma trilha evolutiva contínua.
 
-Ela representa um objetivo, tema ou área de evolução que pode receber múltiplos slices ao longo do tempo. Uma track não precisa ser uma feature fechada. Ela pode representar uma melhoria contínua, uma frente técnica, uma iniciativa de produto ou uma área do sistema que será amadurecida progressivamente.
+Ela representa um objetivo, tema ou área de evolução que pode receber múltiplos slices ao longo do tempo. Uma track não precisa ser uma entrega fechada. Ela pode representar uma melhoria contínua, uma frente técnica, uma iniciativa de produto ou uma área do sistema que será amadurecida progressivamente.
 
 Exemplos de tracks:
 
@@ -105,8 +101,8 @@ Um bom slice deve ser:
 Um slice ruim normalmente:
 
 * mistura múltiplos objetivos;
-* tenta resolver uma feature inteira de uma vez;
-* mistura feature, refatoração e infraestrutura sem necessidade;
+* tenta resolver uma entrega inteira de uma vez;
+* mistura entrega, reestruturacao e infraestrutura sem necessidade;
 * exige muitas decisões abertas;
 * não tem critério claro de validação;
 * é grande demais para ser revisado com confiança.
@@ -119,15 +115,9 @@ Tasks devem ser pequenas, ordenadas e verificaveis. Elas guiam execucao e revisa
 
 ### 3.4 Learning
 
-Uma **task** e uma acao concreta dentro de um slice.
-
-Tasks devem ser pequenas, ordenadas e verificáveis. Elas existem para guiar execução, não para substituir raciocínio do desenvolvedor.
-
-### 3.5 Learning
-
 Um **learning** é um aprendizado extraído da execução de um slice.
 
-Esse é um dos diferenciais centrais do SLD. O objetivo não é apenas entregar código, mas também melhorar o próprio processo e o repositório para que os próximos slices sejam melhores.
+Esse é um dos diferenciais centrais do SLD. O objetivo não é apenas entregar resultado concreto, mas também melhorar o próprio processo e o repositório para que os próximos slices sejam melhores.
 
 Um learning pode virar:
 
@@ -441,8 +431,8 @@ Essa skill deve ser restritiva com tamanho de slice.
 Um slice deve ser rejeitado ou dividido quando:
 
 * tiver mais de um comportamento principal;
-* tocar áreas demais do sistema;
-* misturar feature, refatoração e infraestrutura;
+* tocar areas demais do projeto;
+* misturar entrega, reestruturacao e infraestrutura;
 * depender de muitas decisões abertas;
 * não tiver validação clara;
 * não puder ser revisado em pouco tempo;
@@ -518,57 +508,51 @@ Fecha a slice ativa, registra aprendizado local, consolida aprendizados na track
 
 ---
 
-## 8. Steps do slice
+## 8. Ciclo da slice
 
-### 8.1 Step 1 — Implementation
+Uma slice passa por quatro momentos operacionais:
 
-Objetivo: entregar o avanço principal do slice.
+* criacao e clarificacao;
+* planejamento de tasks;
+* implementacao das tasks planejadas;
+* fechamento com aprendizado local.
+
+### 8.1 Planejamento de tasks
+
+Objetivo: transformar a intencao da slice em acoes pequenas, ordenadas e verificaveis.
 
 Foco:
 
-* implementação mínima necessária;
+* menor conjunto coerente de mudancas;
+* validacao objetiva por task;
+* riscos praticos;
+* arquivos afetados;
+* limite claro de escopo.
+
+### 8.2 Implementacao
+
+Objetivo: executar apenas as tasks planejadas da slice.
+
+Foco:
+
+* entrega minima necessaria;
 * comportamento esperado;
-* testes ou validações essenciais;
-* menor alteração coerente possível;
-* alinhamento com a track.
+* validacoes essenciais;
+* registro de evidencias;
+* desvios explicitados.
 
-Esse step deve evitar refatorações amplas, melhorias laterais ou mudanças não essenciais.
+### 8.3 Fechamento e learning
 
-### 8.2 Step 2 — Refinement
-
-Objetivo: melhorar a qualidade da implementação após ela existir.
+Objetivo: encerrar a slice, registrar aprendizado local e atualizar a track.
 
 Foco:
 
-* organização;
-* legibilidade;
-* coesão;
-* duplicação;
-* testes;
-* edge cases;
-* aderência aos padrões do projeto;
-* simplificação;
-* remoção de dívida criada no step anterior.
+* o que funcionou;
+* o que nao funcionou;
+* sugestao para proxima slice;
+* itens executados fora do escopo original;
+* aprendizados que merecem consolidacao futura.
 
-Esse step só deve ser planejado depois da implementação.
-Nao e obrigatorio gerar tasks se nao houver ponto de melhoria relevante.
-
-### 8.3 Step 3 — Learning
-
-Objetivo: extrair aprendizado reutilizável do slice.
-
-Foco:
-
-* o que aprendemos neste slice;
-* o que deve ser registrado para próximos slices;
-* se alguma guideline deve ser criada ou atualizada;
-* se alguma ADR deve ser proposta;
-* se algum exemplo deve ser salvo como referência;
-* se a track precisa ser atualizada;
-* se o processo de slicing precisa melhorar.
-
-Esse step só deve ser planejado depois do refinamento.
-Nao e obrigatorio gerar tasks se nao houver aprendizado relevante adicional.
 Estruturas de direcionamento do projeto (guidelines, ADRs, examples) devem ser tratadas com rigor: so levantar propostas quando houver relevancia alta e beneficio claro.
 Pontos pouco relevantes devem permanecer como aprendizado da slice/track, sem gerar artefatos globais.
 
@@ -658,7 +642,7 @@ Um slice deve ser pequeno o suficiente para que:
 Um slice provavelmente está no tamanho certo quando:
 
 * possui uma intenção principal;
-* altera poucas áreas do sistema;
+* altera poucas areas do projeto;
 * pode ser descrito em poucas frases;
 * possui critérios de aceite simples;
 * gera um avanço observável;
@@ -674,7 +658,7 @@ Um slice provavelmente está grande demais quando:
 * altera muitos módulos sem uma razão clara;
 * não cabe em uma revisão curta;
 * possui muitos critérios de aceite independentes;
-* parece uma feature inteira;
+* parece uma entrega inteira;
 * tenta resolver problemas futuros demais.
 
 Quando um slice estiver grande demais, ele deve ser dividido.
@@ -707,7 +691,7 @@ Exemplos:
 * verificar se o slice está alinhado à track;
 * detectar escopo inflado;
 * encontrar contradições;
-* validar se os steps respeitam o estado atual;
+* validar se as tasks respeitam o estado atual;
 * verificar se aprendizados foram registrados;
 * identificar se uma decisão deveria virar ADR.
 
@@ -755,7 +739,7 @@ Exemplos:
 * não planejar refinement antes de implementation;
 * não planejar learning antes de refinement;
 * não criar próximo slice sem registrar aprendizado do slice atual, salvo exceção explícita;
-* não executar uma step sem plano; para `refinement`/`learning`, plano sem tasks e valido quando houver justificativa objetiva de ausencia de pontos relevantes.
+* nao executar implementacao sem tasks planejadas; quando nao houver tasks relevantes, registrar justificativa objetiva.
 
 ---
 
@@ -767,15 +751,15 @@ Sempre preferir pequenos avanços validáveis em vez de grandes planos.
 
 ### 14.2 Aprendizado como entrega
 
-Cada slice deve buscar entregar código e aprendizado.
+Cada slice deve buscar entregar avanço concreto e aprendizado.
 
-### 14.3 Refinamento depois da implementação
+### 14.3 Ajustes depois da implementacao
 
-Não tentar prever todo refinamento antes de existir implementação real.
+Não tentar prever todos os ajustes antes de existir entrega real.
 
-### 14.4 Learning depois do refinamento
+### 14.4 Learning no fechamento
 
-Não tentar consolidar aprendizado antes de observar a execução e melhoria do slice.
+Não consolidar aprendizado antes de observar a execução da slice.
 
 ### 14.5 Track viva, não documento morto
 
@@ -795,7 +779,7 @@ A IA deve ajudar a propor, dividir, executar, refinar e aprender, mas o desenvol
 
 ### 15.1 Slice gigante
 
-Um slice que tenta resolver uma feature inteira ou uma refatoração ampla demais.
+Um slice que tenta resolver uma entrega inteira ou uma refatoração ampla demais.
 
 ### 15.2 Track genérica demais
 
@@ -879,10 +863,10 @@ Resultado esperado:
 * critérios de aceite verificáveis;
 * direção técnica suficiente.
 
-### Planejar implementação
+### Planejar tasks
 
 ```text
-sld.step.plan implementation
+sld.slice.plan-tasks
 ```
 
 Resultado esperado:
@@ -892,10 +876,10 @@ Resultado esperado:
 * validações esperadas;
 * riscos práticos.
 
-### Executar implementação
+### Implementar slice
 
 ```text
-sld.step.run implementation
+sld.slice.implement
 ```
 
 Resultado esperado:
@@ -904,32 +888,17 @@ Resultado esperado:
 * resultado registrado;
 * pendências documentadas.
 
-### Planejar e executar refinamento
+### Fechar slice
 
 ```text
-sld.step.plan refinement
-sld.step.run refinement
+sld.slice.close
 ```
 
 Resultado esperado:
 
-* melhorias de qualidade;
-* ajustes de organização;
-* validações adicionais;
-* redução de dívida técnica.
-
-### Planejar e executar aprendizado
-
-```text
-sld.step.plan learning
-sld.step.run learning
-```
-
-Resultado esperado:
-
-* aprendizados registrados;
-* possíveis guidelines atualizadas;
-* possíveis ADRs sugeridas;
+* aprendizado local registrado;
+* learnings da track atualizados;
+* registry de consolidacao atualizado;
 * track atualizada se necessário.
 
 ---
@@ -985,7 +954,7 @@ Sincroniza roadmap planejado com slices reais criadas/executadas.
 ### `sld.learning.consolidate`
 
 Consolida aprendizados locais de track/slices e propõe promoção para camadas mais altas do projeto quando houver ganho real.
-Quando a promocao for de reforco operacional de agente, o destino recomendado e `docs/agent-reinforcements.md`.
+Quando a promocao for de reforco operacional de agente, registrar em arquivo de orientacoes do agente definido pelo projeto.
 
 ---
 
@@ -1000,39 +969,24 @@ A unidade central de progresso não é a spec, nem o plano, nem a task.
 A unidade central de progresso é o **slice**.
 
 ```text
-Track → Slice → Step → Task
+Track → Slice → Task → Learning
 ```
 
 O ciclo principal é:
 
 ```text
-Create track → Clarify track → Create slice → Clarify slice → Plan step → Run step → Learn → Next slice
+Create track → Clarify track → Create slice → Clarify slice → Plan tasks → Implement slice → Close slice → Next slice
 ```
 
 O objetivo é que cada slice entregue três coisas:
 
-1. avanço concreto no sistema;
+1. avanco concreto no projeto;
 2. melhoria na qualidade da implementação;
 3. aprendizado reutilizável para os próximos slices.
 
 Essa combinação cria um fluxo de desenvolvimento mais adequado para colaboração com IA: pequeno, iterativo, validável e evolutivo.
 
-
-## 6. Fluxo operacional atual
-
-Fluxo recomendado:
-
-```text
-sld.slice.create -> (ajustes livres) -> sld.slice.plan-tasks -> (ajustes livres) -> sld.slice.implement -> (ajustes livres) -> sld.slice.close
-```
-
-Notas:
-
-- `sld.step.plan` e `sld.step.run` estao deprecadas (compatibilidade temporaria).
-- Learning e obrigatorio no fechamento da slice (`sld.slice.close`) como learning local.
-- Consolidacao global continua em `sld.learning.consolidate`.
-
-### 6.1 Registry de consolidacao de learning
+## 19. Registry de consolidacao de learning
 
 Arquivo canonico de controle:
 

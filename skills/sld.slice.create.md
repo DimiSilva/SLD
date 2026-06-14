@@ -19,7 +19,7 @@ Cria um novo slice na track atual com nome no padrao `<unix-timestamp-seconds>-n
 O slice deve:
 
 - ter um comportamento principal;
-- afetar poucas areas do sistema;
+- afetar poucas areas do projeto;
 - ter aceite objetivo e verificavel;
 - caber em revisao curta.
 

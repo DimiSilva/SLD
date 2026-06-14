@@ -4,7 +4,7 @@ Executa retrospectiva de processo da track atual.
 
 ## Objetivo
 
-Identificar melhorias no modo de execucao do SLD (nao no conteudo funcional da feature).
+Identificar melhorias no modo de execucao do SLD (nao no conteudo da entrega).
 
 ## Escopo
 
@@ -21,7 +21,7 @@ Identificar melhorias no modo de execucao do SLD (nao no conteudo funcional da f
 
 ## Metodo
 
-1. revisar ultimas slices e steps executadas;
+1. revisar ultimas slices e tasks executadas;
 2. revisar a conversa com o agente para identificar:
    - falhas de interpretacao do SLD;
    - pontos de ambiguidade de skill/template;
