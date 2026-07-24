@@ -28,7 +28,7 @@ Usage:
 Environment:
   SLD_TARGET_DIR=<path>       Target project root. Defaults to current directory.
   SLD_GITHUB_REPO=owner/repo   GitHub repository used when running via curl | bash.
-  SLD_REF=<ref>                Git ref to download for remote install. Defaults to main.
+  SLD_REF=<ref>                Git ref to download for remote install. Defaults to trunk.
   SLD_ARCHIVE_URL=<url>        Full tar.gz archive URL. Overrides SLD_GITHUB_REPO/SLD_REF.
   SLD_INSTALL_AGENTS=1        Copy AGENTS.md to target root if absent.
   SLD_FORCE=1                 Overwrite AGENTS.md when SLD_INSTALL_AGENTS=1.
@@ -57,7 +57,7 @@ has_source_tree() {
 
 download_remote_source() {
   local archive_url="${SLD_ARCHIVE_URL:-}"
-  local ref="${SLD_REF:-main}"
+  local ref="${SLD_REF:-trunk}"
 
   if [[ -z "$archive_url" ]]; then
     if [[ -z "${SLD_GITHUB_REPO:-}" ]]; then
@@ -65,10 +65,10 @@ download_remote_source() {
 [erro] fonte local nao encontrada.
 
 Para instalacao remota, informe o repositorio:
-  curl -fsSL https://raw.githubusercontent.com/<owner>/<repo>/main/install.sh | SLD_GITHUB_REPO=<owner>/<repo> bash
+  curl -fsSL https://raw.githubusercontent.com/<owner>/<repo>/trunk/install.sh | SLD_GITHUB_REPO=<owner>/<repo> bash
 
 Ou passe o repo como argumento:
-  curl -fsSL https://raw.githubusercontent.com/<owner>/<repo>/main/install.sh | bash -s -- <owner>/<repo>
+  curl -fsSL https://raw.githubusercontent.com/<owner>/<repo>/trunk/install.sh | bash -s -- <owner>/<repo>
 EOF
       exit 1
     fi
