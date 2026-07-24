@@ -11,7 +11,9 @@ Use:
 .sld/scripts/custom/create-custom-skill.sh <custom-name> <skill-name> [base-skill]
 ```
 
-Com `base-skill`, declare explicitamente qual skill base esta sendo
-especializada e liste as regras adicionais. Sem ele, crie uma skill unica.
-Scripts chamados por essa skill devem passar explicitamente o config, state e
-templates da customizacao. Nunca edite a skill base.
+O nome deve preservar a estrutura da skill base: `sld.<custom-name>.<base>`.
+Por exemplo, uma especializacao de `sld.slice.create` em `prototype` deve se
+chamar `sld.prototype.slice.create`. Declare explicitamente qual skill base
+esta sendo especializada e liste as regras adicionais. Scripts chamados por
+essa skill devem passar explicitamente o config, state e templates da
+customizacao. Nunca edite a skill base.

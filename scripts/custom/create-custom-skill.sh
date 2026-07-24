@@ -21,7 +21,7 @@ base_ref="${base_skill:-none}"
 
 cat > "$skill_dir/SKILL.md" <<EOF
 ---
-name: sld-$custom_slug-$skill_slug
+name: sld.$custom_slug.$skill_slug
 description: Custom SLD skill for $skill_name_input in the $custom_slug specialization.
 ---
 
@@ -30,7 +30,7 @@ description: Custom SLD skill for $skill_name_input in the $custom_slug speciali
 ## Base skill
 
 - extends: $base_ref
-- base path: .sld/skills/<base-skill>/SKILL.md
+- base path: .sld/skills/$base_ref/SKILL.md
 
 ## Instructions
 

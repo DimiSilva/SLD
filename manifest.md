@@ -342,15 +342,26 @@ atualizacoes do SLD.
 Cada customizacao deve possuir `manifest.md`, `config.yaml`, `scripts/`,
 `skills/`, `templates/` e `state/`. A configuracao da customizacao e autonoma
 para a execucao daquele subprojeto e deve declarar seus proprios `paths` e
-`naming`. Customizacoes podem adicionar skills unicas,
-especializar skills base, adicionar scripts e templates, e definir regras de
-dominio. Uma skill especializada deve declarar explicitamente a skill base que
-estende e suas regras adicionais. A especializacao nao deve editar a base.
+`naming`.
 
-Os scripts dentro da customizacao devem ser wrappers ou implementacoes
-proprias. Wrappers devem delegar aos scripts base passando explicitamente o
-`config.yaml`, `state/` e `templates/` da customizacao. Nao e necessario um
-arquivo global de customizacao ativa.
+Uma customizacao completa implementa toda a estrutura base do SLD. Para cada
+skill base `sld.<area>.<operacao>`, deve existir uma skill especializada com o
+nome `sld.<custom-name>.<area>.<operacao>`. Por exemplo:
+
+```text
+sld.slice.create
+sld.prototype.slice.create
+```
+
+A skill especializada deve declarar explicitamente a skill base que herda,
+preservar seu fluxo e registrar apenas as regras adicionais da customizacao.
+Ela nao deve editar a skill base.
+
+Os scripts dentro da customizacao devem espelhar os scripts operacionais base.
+Por padrao, sao wrappers que delegam aos scripts base passando explicitamente
+o `config.yaml`, `state/` e `templates/` da customizacao. Implementacoes
+proprias podem substituir wrappers quando houver comportamento especializado.
+Nao e necessario um arquivo global de customizacao ativa.
 
 Estrutura gerada por `sld.custom.create`:
 
@@ -370,7 +381,14 @@ Estrutura gerada por `sld.custom.create`:
     slice/
     check/
   skills/
+    sld.<custom-name>.track.create/
+      SKILL.md
+    sld.<custom-name>.slice.create/
+      SKILL.md
+    ...todas as skills base especializadas...
   templates/
+    track.md.tpl -> template base herdado
+    slice.md.tpl -> template base herdado
 ```
 
 Por padrao, os wrappers usam os templates da camada base quando a

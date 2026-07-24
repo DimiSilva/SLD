@@ -9,6 +9,22 @@ root="$REPO_ROOT/$custom_root"
 target="${1:-}"
 status=0
 
+base_skills=(
+  track.create track.clarify slice.create slice.split slice.clarify
+  slice.plan-tasks slice.implement slice.close track.check slice.check
+  retro adr example roadmap.plan roadmap.check roadmap.sync
+  learning.consolidate
+)
+
+base_scripts=(
+  core/timestamp.sh core/uuid.sh core/slugify.sh
+  track/create-track.sh track/set-current-track.sh
+  slice/create-slice.sh slice/set-current-slice.sh
+  check/check-naming.sh check/check-required-files.sh
+)
+
+base_templates=(track.md.tpl slice.md.tpl adr.md.tpl example.md.tpl roadmap.md.tpl)
+
 check_one() {
   local dir="$1"
   [[ -f "$dir/manifest.md" ]] || { err "manifest.md ausente: $dir"; status=1; }
@@ -16,6 +32,28 @@ check_one() {
   [[ -d "$dir/scripts" && -d "$dir/skills" && -d "$dir/templates" && -d "$dir/state" ]] || { err "estrutura incompleta: $dir"; status=1; }
   [[ -x "$dir/scripts/run-base.sh" ]] || { err "run-base.sh ausente ou nao executavel: $dir"; status=1; }
   grep -q '^paths:' "$dir/config.yaml" || { err "paths ausente: $dir/config.yaml"; status=1; }
+  local custom_name
+  custom_name="$(basename "$dir")"
+
+  for base_script in "${base_scripts[@]}"; do
+    [[ -x "$dir/scripts/$base_script" ]] || { err "script custom ausente: $dir/scripts/$base_script"; status=1; }
+  done
+
+  for template in "${base_templates[@]}"; do
+    [[ -f "$dir/templates/$template" ]] || { err "template herdado ausente: $dir/templates/$template"; status=1; }
+  done
+
+  for base_skill in "${base_skills[@]}"; do
+    local custom_skill="$dir/skills/sld.$custom_name.$base_skill"
+    [[ -f "$custom_skill/SKILL.md" ]] || { err "skill custom ausente: $custom_skill/SKILL.md"; status=1; continue; }
+    grep -q "^name: sld\\.$custom_name\\.$base_skill$" "$custom_skill/SKILL.md" || {
+      err "nome de skill custom invalido: $custom_skill/SKILL.md"; status=1;
+    }
+    grep -q "^- extends: sld\\.$base_skill$" "$custom_skill/SKILL.md" || {
+      err "heranca ausente: $custom_skill/SKILL.md"; status=1;
+    }
+  done
+
   while IFS= read -r skill_md; do
     grep -q '^name:' "$skill_md" || { err "name ausente: $skill_md"; status=1; }
     grep -q '^description:' "$skill_md" || { err "description ausente: $skill_md"; status=1; }

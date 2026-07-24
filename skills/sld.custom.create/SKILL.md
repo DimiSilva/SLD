@@ -11,7 +11,8 @@ Leia `.sld/manifest.md` e `.sld/config.yaml`. Execute:
 .sld/scripts/custom/create-custom.sh "<name>"
 ```
 
-Crie somente uma customizacao namespaced em `.sld/custom/<name>`. A estrutura
-deve incluir `config.yaml`, `state/`, `scripts/`, `skills/`, `templates/` e os
-diretorios de artefatos definidos no config. Nao altere a camada base. Retorne
-caminho, resumo e pendencias.
+Crie uma customizacao completa e namespaced em `.sld/custom/<name>`. O
+gerador deve criar todas as skills base especializadas no formato
+`sld.<name>.<area>.<operacao>`, wrappers para todos os scripts operacionais
+base, templates herdados e os diretorios de artefatos definidos no config. Nao
+altere a camada base. Retorne caminho, resumo e pendencias.

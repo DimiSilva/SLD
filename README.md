@@ -177,6 +177,19 @@ skill base, adicionar scripts ou criar templates. Ela deve referenciar
 explicitamente a skill base que estende; o SLD não faz merge implícito de
 skills.
 
+Uma customização completa implementa toda a estrutura base. Suas skills mantêm
+o domínio da operação e adicionam o nome da customização:
+
+```text
+sld.slice.create
+sld.prototype.slice.create
+```
+
+O comando `sld.custom.create` gera todas as skills base especializadas,
+wrappers dos scripts operacionais e templates herdados. A customização pode
+substituir qualquer wrapper ou template quando precisar de comportamento
+próprio.
+
 Use as skills `sld.custom.create`, `sld.custom.check`,
 `sld.custom.skill.create` e `sld.custom.update` para manter a estrutura.
 
@@ -184,6 +197,6 @@ O atualizador substitui apenas `manifest.md`, `scripts/`, `skills/` e
 `templates/`. Ele preserva `config.yaml` e todo o conteúdo de `custom/`.
 
 Scripts base aceitam `--config`, `--state-root` e `--templates-root`. Os
-scripts de uma customização devem passar esses três valores ao delegar para a
-base. Dessa forma, cada customização mantém seu próprio `current-track`,
-tracks, slices e templates, sem precisar de uma customização ativa global.
+wrappers de uma customização passam esses três valores ao delegar para a base.
+Dessa forma, cada customização mantém seu próprio `current-track`, tracks,
+slices e templates, sem precisar de uma customização ativa global.
