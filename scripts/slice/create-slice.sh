@@ -4,13 +4,15 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../lib/_common.sh
 source "$SCRIPT_DIR/../lib/_common.sh"
+parse_context_args "$@"
+set -- "${SLD_POSITIONAL_ARGS[@]}"
 
 name_input="${1:-}"
 [[ -n "$name_input" ]] || usage_error "uso: $(basename "$0") <name>"
 
-require_file "$REPO_ROOT/.sld/current-track"
-current_track_ref="$(tr -d '\n' < "$REPO_ROOT/.sld/current-track")"
-[[ -n "$current_track_ref" ]] || usage_error "arquivo .sld/current-track vazio"
+require_file "$SLD_STATE_ROOT/current-track"
+current_track_ref="$(tr -d '\n' < "$SLD_STATE_ROOT/current-track")"
+[[ -n "$current_track_ref" ]] || usage_error "arquivo current-track vazio em $SLD_STATE_ROOT"
 
 track_dir="$REPO_ROOT/$current_track_ref"
 require_dir "$track_dir"
@@ -29,7 +31,7 @@ fi
 
 mkdir -p "$slice_dir"
 render_template \
-  "$REPO_ROOT/.sld/templates/slice.md.tpl" \
+  "$SLD_TEMPLATES_ROOT/slice.md.tpl" \
   "$slice_dir/slice.md" \
   SLICE_NAME "$slice_name"
 

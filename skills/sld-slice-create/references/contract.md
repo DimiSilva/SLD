@@ -25,11 +25,17 @@ O slice deve:
 
 Se o slice estiver grande, dividir antes de seguir.
 
-## Workflow obrigatorio apos create
+## Workflow recomendado apos create
 
 ```text
-sld.slice.create -> (trabalho livre de ajuste) -> sld.slice.plan-tasks -> (ajustes livres) -> sld.slice.implement -> (ajustes livres) -> sld.slice.close
+sld.slice.create -> (ajustes livres) -> [sld.slice.clarify, opcional]
+-> (ajustes livres) -> sld.slice.plan-tasks -> (ajustes livres)
+-> sld.slice.implement -> (ajustes livres) -> sld.slice.close
 ```
+
+Use `sld.slice.clarify` quando a complexidade do slice, as decisoes abertas ou
+a falta de clareza do operador justificarem uma rodada explicita de
+clarificacao.
 
 ## Execucao padrao
 

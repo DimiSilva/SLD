@@ -4,6 +4,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../lib/_common.sh
 source "$SCRIPT_DIR/../lib/_common.sh"
+parse_context_args "$@"
 
 status=0
 

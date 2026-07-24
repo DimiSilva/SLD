@@ -21,7 +21,11 @@ O SLD propõe um modelo mais incremental, evolutivo e orientado a aprendizado.
 A partir desta revisao, o fluxo operacional oficial do SLD e:
 
 ```text
-sld.slice.create -> (ajustes livres) -> sld.slice.plan-tasks -> (ajustes livres) -> sld.slice.implement -> (ajustes livres) -> sld.slice.close
+sld.track.create -> (ajustes livres) -> [sld.track.clarify, opcional]
+-> (ajustes livres) -> sld.slice.create -> (ajustes livres)
+-> [sld.slice.clarify, opcional] -> (ajustes livres)
+-> sld.slice.plan-tasks -> (ajustes livres) -> sld.slice.implement
+-> (ajustes livres) -> sld.slice.close -> checks
 ```
 
 Em caso de conflito entre secoes, esta secao e o capitulo `## 6. Fluxo operacional atual` prevalecem.
@@ -163,22 +167,8 @@ Estrutura base recomendada:
     roadmap.md.tpl
   skills/
     README.md
-    sld.track.create.md
-    sld.track.clarify.md
-    sld.slice.create.md
-    sld.slice.split.md
-    sld.slice.clarify.md
-    sld.slice.plan-tasks.md
-    sld.slice.implement.md
-    sld.track.check.md
-    sld.slice.check.md
-    sld.retro.md
-    sld.adr.md
-    sld.example.md
-    sld.roadmap.plan.md
-    sld.roadmap.check.md
-    sld.roadmap.sync.md
-    sld.learning.consolidate.md
+    sld-track-create/SKILL.md
+    sld-slice-implement/SKILL.md
   scripts/
     README.md
     core/
@@ -217,6 +207,8 @@ Schema minimo esperado:
 version: 1
 paths:
   tracks_root: tracks
+  state_root: .sld
+  templates_root: .sld/templates
 naming:
   track_pattern: "<unix-timestamp-seconds>-name"
   slice_pattern: "<unix-timestamp-seconds>-name"
@@ -225,6 +217,10 @@ naming:
 ### 5.0.2 Fonte de verdade
 
 Em caso de conflito entre exemplos textuais e configuracao, `config.yaml` prevalece.
+
+Uma configuracao passada explicitamente ao script com `--config` prevalece
+para aquela execucao. O contexto tambem pode definir `--state-root` e
+`--templates-root`.
 
 ### 5.0.3 Obrigatorio vs opcional
 
@@ -239,19 +235,26 @@ Opcional, mas recomendado:
 * `.sld/skills/`
 * `.sld/templates/`
 
-### 5.1 `.sld/current-track`
+### 5.1 Contexto e estado da execucao
 
-Arquivo que aponta para a track atualmente ativa.
+Os scripts base usam `.sld/config.yaml` e `.sld/current-track` por padrao.
+Eles aceitam `--config`, `--state-root` e `--templates-root`, permitindo que
+uma customizacao execute a mesma implementacao com contexto isolado.
+
+O arquivo `current-track` fica dentro do state root. O `.current-slice` fica
+dentro da track apontada pelo contexto.
 
 Exemplo:
 
 ```text
-<tracks-root>/1746442983-improve-agent-reliability
+<state-root>/current-track -> <tracks-root>/1746442983-improve-agent-reliability
 ```
 
 ### 5.1.1 `.sld/scripts/` (obrigatorio para execucao automatizada)
 
 Diretorio com scripts utilitarios usados por skills e fluxos operacionais.
+Scripts base devem manter o comportamento padrao quando nenhum contexto for
+informado e aceitar contexto explicito quando uma customizacao os chamar.
 
 Novas pastas dentro de `.sld/scripts/` podem ser adicionadas livremente conforme necessidade do projeto.
 
@@ -326,7 +329,59 @@ Diretorio opcional com templates reutilizaveis para gerar artefatos da metodolog
 
 ### 5.7 `.sld/skills/` (opcional)
 
-Diretorio opcional com contratos/documentacao das skills SLD.
+Diretorio com as skills SLD no formato Agent Skills. Cada skill deve possuir
+um diretorio proprio e um `SKILL.md` com `name` e `description`. Contratos
+detalhados adicionais devem ficar em `references/` dentro da skill.
+
+### 5.8 `.sld/custom/`
+
+Diretorio reservado para subprojetos SLD do projeto consumidor. Seu conteudo
+nao pertence a camada base e nao pode ser removido ou sobrescrito por
+atualizacoes do SLD.
+
+Cada customizacao deve possuir `manifest.md`, `config.yaml`, `scripts/`,
+`skills/`, `templates/` e `state/`. A configuracao da customizacao e autonoma
+para a execucao daquele subprojeto e deve declarar seus proprios `paths` e
+`naming`. Customizacoes podem adicionar skills unicas,
+especializar skills base, adicionar scripts e templates, e definir regras de
+dominio. Uma skill especializada deve declarar explicitamente a skill base que
+estende e suas regras adicionais. A especializacao nao deve editar a base.
+
+Os scripts dentro da customizacao devem ser wrappers ou implementacoes
+proprias. Wrappers devem delegar aos scripts base passando explicitamente o
+`config.yaml`, `state/` e `templates/` da customizacao. Nao e necessario um
+arquivo global de customizacao ativa.
+
+Estrutura gerada por `sld.custom.create`:
+
+```text
+.sld/custom/<custom-name>/
+  manifest.md
+  config.yaml
+  state/
+    current-track
+  tracks/
+  adrs/
+  guidelines/
+  examples/
+  scripts/
+    run-base.sh
+    track/
+    slice/
+    check/
+  skills/
+  templates/
+```
+
+Por padrao, os wrappers usam os templates da camada base quando a
+customizacao ainda nao possui templates proprios. Ao existir um template no
+diretorio da customizacao, ele passa a ser usado pelo wrapper.
+
+### 5.9 Atualizacao da camada base
+
+`.sld/scripts/core/update-sld.sh` atualiza a camada base a partir de uma fonte
+local ou remota. A operacao deve preservar `.sld/config.yaml`, `.sld/custom/`
+e artefatos de trabalho fora da camada base.
 
 ---
 
@@ -337,11 +392,17 @@ O fluxo operacional oficial do SLD e:
 ```text
 sld.track.create
   ↓
-sld.track.clarify
+ajustes livres
+  ↓
+sld.track.clarify (opcional, quando necessario)
   ↓
 sld.slice.create
   ↓
-sld.slice.clarify
+ajustes livres
+  ↓
+sld.slice.clarify (opcional, quando necessario)
+  ↓
+ajustes livres
   ↓
 sld.slice.plan-tasks
   ↓
@@ -359,6 +420,12 @@ Esse fluxo cria um loop evolutivo:
 ```text
 track → slice → implement → refine → learn → update track → next slice
 ```
+
+As etapas `sld.track.clarify` e `sld.slice.clarify` sao opcionais. Devem ser
+usadas quando a complexidade da feature, a quantidade de decisoes abertas ou
+a falta de clareza do operador justificar uma rodada explicita de
+clarificacao. Os ajustes livres continuam permitidos entre as etapas e podem
+ser suficientes quando o contexto ja estiver claro.
 
 ---
 
@@ -395,7 +462,8 @@ Responsabilidades:
 * atualizar `.sld/current-track`;
 * registrar contexto, objetivo e direção desejada.
 
-A track criada não precisa estar perfeita. Ela precisa ser boa o suficiente para iniciar um processo de clarificação e criação de slices.
+A track criada não precisa estar perfeita. Ela precisa ser boa o suficiente
+para iniciar ajustes livres, uma clarificação opcional e a criação de slices.
 
 ### 7.2 `sld.track.clarify`
 

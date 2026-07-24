@@ -45,13 +45,16 @@ Cria uma nova track SLD com nome no padrao `<unix-timestamp-seconds>-name`, defi
    - `Open Questions`
 5. confirmar que `.sld/current-track` aponta para a nova track.
 
-## Workflow obrigatorio apos create
+## Workflow recomendado apos create
 
 ```text
-sld.track.create -> sld.track.clarify -> sld.slice.create
+sld.track.create -> (ajustes livres) -> [sld.track.clarify, opcional]
+-> (ajustes livres) -> sld.slice.create
 ```
 
-Nao pular `sld.track.clarify` quando ainda houver ambiguidades relevantes.
+Use `sld.track.clarify` quando houver ambiguidades relevantes, complexidade
+alta ou quando o operador ainda nao tiver clareza suficiente. Caso contrario,
+os ajustes livres podem ser suficientes.
 
 ## Validacoes obrigatorias
 

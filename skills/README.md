@@ -1,6 +1,10 @@
 # SLD Skills
 
-Skills disponiveis (fluxo atual):
+As skills seguem o Agent Skills: cada skill fica em um diretorio proprio com
+`SKILL.md`. O contrato detalhado de cada skill fica em seu proprio diretorio,
+em `references/contract.md`, quando houver necessidade de separacao.
+
+Skills base disponiveis (fluxo atual):
 
 - sld.track.create
 - sld.track.clarify
@@ -19,3 +23,35 @@ Skills disponiveis (fluxo atual):
 - sld.roadmap.check
 - sld.roadmap.sync
 - sld.learning.consolidate
+
+Skills de customizacao:
+
+- sld.custom.create
+- sld.custom.check
+- sld.custom.update
+- sld.custom.skill.create
+
+O nome no frontmatter usa a forma compativel com Agent Skills (por exemplo,
+`sld-track-create`), enquanto os identificadores metodologicos continuam
+sendo escritos como `sld.track.create`.
+
+## Estrutura
+
+```text
+skills/
+  sld-track-create/
+    SKILL.md
+  sld-slice-implement/
+    SKILL.md
+  sld-custom-create/
+    SKILL.md
+```
+
+Skills customizadas devem viver em `.sld/custom/<nome>/skills/` e podem
+adicionar skills, scripts, templates, manifestos e configuracao sem alterar a
+camada base.
+
+Os contratos base usam `.sld/config.yaml` e `.sld/current-track` como defaults.
+Quando uma skill operar dentro de uma customizacao, deve usar os caminhos do
+contexto informado pela skill/script adaptador: `config.yaml`, `state/` e
+`templates/` da customizacao.

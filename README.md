@@ -32,6 +32,13 @@ Isso cria ou atualiza:
   scripts/
   skills/
   templates/
+  custom/
+    <custom-name>/
+      config.yaml
+      state/
+      scripts/
+      skills/
+      templates/
 ```
 
 Por padrao, os artefatos de trabalho ficam em `docs/tracks`, `docs/adrs`, `docs/guidelines` e `docs/examples`, conforme `.sld/config.yaml`.
@@ -55,14 +62,20 @@ SLD_TRACKS_ROOT=work/tracks /caminho/para/sld/install.sh
 - `SLD_FORCE=1`: permite sobrescrever `AGENTS.md` quando `SLD_INSTALL_AGENTS=1`.
 - `SLD_FORCE_CONFIG=1`: permite sobrescrever `.sld/config.yaml`; sem isso, configuracao existente e preservada.
 - `SLD_TRACKS_ROOT`, `SLD_ADRS_ROOT`, `SLD_GUIDELINES_ROOT`, `SLD_EXAMPLES_ROOT`: customizam caminhos iniciais no `config.yaml`.
+- `SLD_CUSTOM_ROOT`: caminho das customizações SLD. Padrão: `.sld/custom`.
 
 ## Fluxo atual
 
 ```text
-sld.track.create -> sld.track.clarify -> sld.slice.create -> sld.slice.clarify
--> sld.slice.plan-tasks -> sld.slice.implement -> ajustes livres
--> sld.slice.close -> checks -> proxima slice
+sld.track.create -> (ajustes livres) -> [sld.track.clarify, opcional]
+-> (ajustes livres) -> sld.slice.create -> (ajustes livres)
+-> [sld.slice.clarify, opcional] -> (ajustes livres)
+-> sld.slice.plan-tasks -> (ajustes livres) -> sld.slice.implement
+-> (ajustes livres) -> sld.slice.close -> checks -> proxima slice
 ```
+
+As skills de clarify sao opcionais e dependem da complexidade da feature e da
+clareza do operador. Os ajustes livres podem ser usados entre as etapas.
 
 ## Scripts principais
 
@@ -78,3 +91,21 @@ Depois de instalado:
 ## Nota de distribuicao
 
 Este repositorio guarda o pacote fonte na raiz. Em projetos consumidores, o pacote deve viver dentro de `.sld/`. Os scripts assumem essa estrutura instalada.
+
+## Customizações
+
+`.sld/` possui uma camada base gerenciada e uma área de customizações preservada.
+Uma customização pode definir skills próprias, especializar uma skill base,
+adicionar scripts ou criar templates. Ela deve referenciar explicitamente a
+skill base que estende; o SLD não faz merge implícito de skills.
+
+Use as skills `sld.custom.create`, `sld.custom.check`,
+`sld.custom.skill.create` e `sld.custom.update` para manter a estrutura.
+
+O atualizador substitui apenas `manifest.md`, `scripts/`, `skills/` e `templates/`.
+Ele preserva `config.yaml` e todo o conteúdo de `custom/`.
+
+Scripts base aceitam `--config`, `--state-root` e `--templates-root`. Os
+scripts de uma customização devem passar esses três valores ao delegar para a
+base. Dessa forma, cada customização mantém seu próprio `current-track`,
+tracks, slices e templates, sem precisar de um custom ativo global.

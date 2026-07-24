@@ -5,6 +5,9 @@ paths:
   adrs_root: docs/adrs
   guidelines_root: docs/guidelines
   examples_root: docs/examples
+  custom_root: .sld/custom
+  state_root: .sld
+  templates_root: .sld/templates
 
 naming:
   track_pattern: "<unix-timestamp-seconds>-name"

@@ -4,13 +4,15 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../lib/_common.sh
 source "$SCRIPT_DIR/../lib/_common.sh"
+parse_context_args "$@"
+set -- "${SLD_POSITIONAL_ARGS[@]}"
 
 slice_name="${1:-}"
 [[ -n "$slice_name" ]] || usage_error "uso: $(basename "$0") <slice-name>"
 
-require_file "$REPO_ROOT/.sld/current-track"
-current_track_ref="$(tr -d '\n' < "$REPO_ROOT/.sld/current-track")"
-[[ -n "$current_track_ref" ]] || usage_error "arquivo .sld/current-track vazio"
+require_file "$SLD_STATE_ROOT/current-track"
+current_track_ref="$(tr -d '\n' < "$SLD_STATE_ROOT/current-track")"
+[[ -n "$current_track_ref" ]] || usage_error "arquivo current-track vazio em $SLD_STATE_ROOT"
 
 track_dir="$REPO_ROOT/$current_track_ref"
 require_dir "$track_dir"
