@@ -31,19 +31,19 @@ Skills de customizacao:
 - sld.custom.update
 - sld.custom.skill.create
 
-O nome no frontmatter usa a forma compativel com Agent Skills (por exemplo,
-`sld-track-create`), enquanto os identificadores metodologicos continuam
-sendo escritos como `sld.track.create`.
+O nome no frontmatter usa a forma compativel com Agent Skills, enquanto as
+pastas usam os identificadores metodologicos com pontos, como
+`sld.track.create`.
 
 ## Estrutura
 
 ```text
 skills/
-  sld-track-create/
+  sld.track.create/
     SKILL.md
-  sld-slice-implement/
+  sld.slice.implement/
     SKILL.md
-  sld-custom-create/
+  sld.custom.create/
     SKILL.md
 ```
 

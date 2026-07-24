@@ -167,8 +167,8 @@ Estrutura base recomendada:
     roadmap.md.tpl
   skills/
     README.md
-    sld-track-create/SKILL.md
-    sld-slice-implement/SKILL.md
+    sld.track.create/SKILL.md
+    sld.slice.implement/SKILL.md
   scripts/
     README.md
     core/

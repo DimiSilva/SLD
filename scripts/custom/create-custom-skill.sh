@@ -11,10 +11,10 @@ base_skill="${3:-}"
 custom_root="$(config_get_path "custom_root" || true)"
 custom_root="${custom_root:-.sld/custom}"
 custom_slug="$(slugify "$custom_name")"
-skill_slug="$(slugify "$skill_name_input")"
+skill_slug="$(printf '%s' "$skill_name_input" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9.]+/-/g; s/^-+//; s/-+$//; s/-+/-/g')"
 custom_dir="$REPO_ROOT/$custom_root/$custom_slug"
 require_dir "$custom_dir"
-skill_dir="$custom_dir/skills/sld-$custom_slug-$skill_slug"
+skill_dir="$custom_dir/skills/sld.$custom_slug.$skill_slug"
 [[ ! -e "$skill_dir" ]] || usage_error "skill ja existe: $skill_dir"
 mkdir -p "$skill_dir"
 base_ref="${base_skill:-none}"
@@ -37,6 +37,7 @@ description: Custom SLD skill for $skill_name_input in the $custom_slug speciali
 - Leia .sld/manifest.md e o manifesto desta customizacao.
 - Preserve as regras da skill base quando extends nao for none.
 - Registre aqui as regras adicionais ou o fluxo unico desta customizacao.
+- Scripts devem usar explicitamente o config, state e templates da customizacao.
 - Nao altere a camada base.
 EOF
 printf '%s\n' "$skill_dir/SKILL.md"
