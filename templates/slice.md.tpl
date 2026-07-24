@@ -21,12 +21,12 @@ Liste riscos, hipoteses e dependencias.
 ## Tasks
 Status: not_planned
 
-- (preencher em `sld.slice.plan-tasks`)
+- (preencher em `sld-slice-plan-tasks`)
 
 ## Execution Result
 Status: not_started
 
-- (preencher em `sld.slice.implement`)
+- (preencher em `sld-slice-implement`)
 
 ## Learning (local)
 

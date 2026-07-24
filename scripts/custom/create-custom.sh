@@ -134,25 +134,25 @@ roadmap.md.tpl
 EOF
 
 while IFS= read -r base_skill; do
-  "$SCRIPT_DIR/create-custom-skill.sh" "$name_slug" "$base_skill" "sld.$base_skill" >/dev/null
+  "$SCRIPT_DIR/create-custom-skill.sh" "$name_slug" "$base_skill" "sld-$base_skill" >/dev/null
 done <<'EOF'
-track.create
-track.clarify
-slice.create
-slice.split
-slice.clarify
-slice.plan-tasks
-slice.implement
-slice.close
-track.check
-slice.check
+track-create
+track-clarify
+slice-create
+slice-split
+slice-clarify
+slice-plan-tasks
+slice-implement
+slice-close
+track-check
+slice-check
 retro
 adr
 example
-roadmap.plan
-roadmap.check
-roadmap.sync
-learning.consolidate
+roadmap-plan
+roadmap-check
+roadmap-sync
+learning-consolidate
 EOF
 
 printf '%s\n' "$custom_dir"

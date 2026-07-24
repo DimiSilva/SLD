@@ -109,7 +109,7 @@ compactado:
 SLD_GITHUB_REPO=DimiSilva/SLD SLD_REF=<branch-ou-tag> \
   .sld/scripts/core/update-sld.sh
 
-SLD_ARCHIVE_URL=https://example.com/sld.tar.gz \
+SLD_ARCHIVE_URL=https://example.com/sld-tar-gz \
   .sld/scripts/core/update-sld.sh
 ```
 
@@ -142,11 +142,11 @@ SLD_TRACKS_ROOT=work/tracks /caminho/para/sld/install.sh
 ## Fluxo atual
 
 ```text
-sld.track.create -> (ajustes livres) -> [sld.track.clarify, opcional]
--> (ajustes livres) -> sld.slice.create -> (ajustes livres)
--> [sld.slice.clarify, opcional] -> (ajustes livres)
--> sld.slice.plan-tasks -> (ajustes livres) -> sld.slice.implement
--> (ajustes livres) -> sld.slice.close -> checks -> próxima slice
+sld-track-create -> (ajustes livres) -> [sld-track-clarify, opcional]
+-> (ajustes livres) -> sld-slice-create -> (ajustes livres)
+-> [sld-slice-clarify, opcional] -> (ajustes livres)
+-> sld-slice-plan-tasks -> (ajustes livres) -> sld-slice-implement
+-> (ajustes livres) -> sld-slice-close -> checks -> próxima slice
 ```
 
 As skills de clarify são opcionais e dependem da complexidade da feature e da
@@ -181,17 +181,17 @@ Uma customização completa implementa toda a estrutura base. Suas skills mantê
 o domínio da operação e adicionam o nome da customização:
 
 ```text
-sld.slice.create
-sld.prototype.slice.create
+sld-slice-create
+sld-prototype-slice-create
 ```
 
-O comando `sld.custom.create` gera todas as skills base especializadas,
+O comando `sld-custom-create` gera todas as skills base especializadas,
 wrappers dos scripts operacionais e templates herdados. A customização pode
 substituir qualquer wrapper ou template quando precisar de comportamento
 próprio.
 
-Use as skills `sld.custom.create`, `sld.custom.check`,
-`sld.custom.skill.create` e `sld.custom.update` para manter a estrutura.
+Use as skills `sld-custom-create`, `sld-custom-check`,
+`sld-custom-skill-create` e `sld-custom-update` para manter a estrutura.
 
 O atualizador substitui apenas `manifest.md`, `scripts/`, `skills/` e
 `templates/`. Ele preserva `config.yaml` e todo o conteúdo de `custom/`.

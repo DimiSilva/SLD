@@ -6,44 +6,44 @@ em `references/contract.md`, quando houver necessidade de separacao.
 
 Skills base disponiveis (fluxo atual):
 
-- sld.track.create
-- sld.track.clarify
-- sld.slice.create
-- sld.slice.split
-- sld.slice.clarify
-- sld.slice.plan-tasks
-- sld.slice.implement
-- sld.slice.close
-- sld.track.check
-- sld.slice.check
-- sld.retro
-- sld.adr
-- sld.example
-- sld.roadmap.plan
-- sld.roadmap.check
-- sld.roadmap.sync
-- sld.learning.consolidate
+- sld-track-create
+- sld-track-clarify
+- sld-slice-create
+- sld-slice-split
+- sld-slice-clarify
+- sld-slice-plan-tasks
+- sld-slice-implement
+- sld-slice-close
+- sld-track-check
+- sld-slice-check
+- sld-retro
+- sld-adr
+- sld-example
+- sld-roadmap-plan
+- sld-roadmap-check
+- sld-roadmap-sync
+- sld-learning-consolidate
 
 Skills de customizacao:
 
-- sld.custom.create
-- sld.custom.check
-- sld.custom.update
-- sld.custom.skill.create
+- sld-custom-create
+- sld-custom-check
+- sld-custom-update
+- sld-custom-skill-create
 
 O nome no frontmatter usa a forma compativel com Agent Skills, enquanto as
-pastas usam os identificadores metodologicos com pontos, como
-`sld.track.create`.
+pastas e o campo `name` usam identificadores com hífens, como
+`sld-track-create`.
 
 ## Estrutura
 
 ```text
 skills/
-  sld.track.create/
+  sld-track-create/
     SKILL.md
-  sld.slice.implement/
+  sld-slice-implement/
     SKILL.md
-  sld.custom.create/
+  sld-custom-create/
     SKILL.md
 ```
 

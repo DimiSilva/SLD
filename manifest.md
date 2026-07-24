@@ -21,11 +21,11 @@ O SLD propõe um modelo mais incremental, evolutivo e orientado a aprendizado.
 A partir desta revisao, o fluxo operacional oficial do SLD e:
 
 ```text
-sld.track.create -> (ajustes livres) -> [sld.track.clarify, opcional]
--> (ajustes livres) -> sld.slice.create -> (ajustes livres)
--> [sld.slice.clarify, opcional] -> (ajustes livres)
--> sld.slice.plan-tasks -> (ajustes livres) -> sld.slice.implement
--> (ajustes livres) -> sld.slice.close -> checks
+sld-track-create -> (ajustes livres) -> [sld-track-clarify, opcional]
+-> (ajustes livres) -> sld-slice-create -> (ajustes livres)
+-> [sld-slice-clarify, opcional] -> (ajustes livres)
+-> sld-slice-plan-tasks -> (ajustes livres) -> sld-slice-implement
+-> (ajustes livres) -> sld-slice-close -> checks
 ```
 
 Em caso de conflito entre secoes, esta secao e o capitulo `## 6. Fluxo operacional atual` prevalecem.
@@ -167,8 +167,8 @@ Estrutura base recomendada:
     roadmap.md.tpl
   skills/
     README.md
-    sld.track.create/SKILL.md
-    sld.slice.implement/SKILL.md
+    sld-track-create/SKILL.md
+    sld-slice-implement/SKILL.md
   scripts/
     README.md
     core/
@@ -345,12 +345,12 @@ para a execucao daquele subprojeto e deve declarar seus proprios `paths` e
 `naming`.
 
 Uma customizacao completa implementa toda a estrutura base do SLD. Para cada
-skill base `sld.<area>.<operacao>`, deve existir uma skill especializada com o
-nome `sld.<custom-name>.<area>.<operacao>`. Por exemplo:
+skill base `sld-<area>-<operacao>`, deve existir uma skill especializada com o
+nome `sld-<custom-name>-<area>-<operacao>`. Por exemplo:
 
 ```text
-sld.slice.create
-sld.prototype.slice.create
+sld-slice-create
+sld-prototype-slice-create
 ```
 
 A skill especializada deve declarar explicitamente a skill base que herda,
@@ -363,7 +363,7 @@ o `config.yaml`, `state/` e `templates/` da customizacao. Implementacoes
 proprias podem substituir wrappers quando houver comportamento especializado.
 Nao e necessario um arquivo global de customizacao ativa.
 
-Estrutura gerada por `sld.custom.create`:
+Estrutura gerada por `sld-custom-create`:
 
 ```text
 .sld/custom/<custom-name>/
@@ -381,9 +381,9 @@ Estrutura gerada por `sld.custom.create`:
     slice/
     check/
   skills/
-    sld.<custom-name>.track.create/
+    sld-<custom-name>-track-create/
       SKILL.md
-    sld.<custom-name>.slice.create/
+    sld-<custom-name>-slice-create/
       SKILL.md
     ...todas as skills base especializadas...
   templates/
@@ -408,25 +408,25 @@ e artefatos de trabalho fora da camada base.
 O fluxo operacional oficial do SLD e:
 
 ```text
-sld.track.create
+sld-track-create
   ↓
 ajustes livres
   ↓
-sld.track.clarify (opcional, quando necessario)
+sld-track-clarify (opcional, quando necessario)
   ↓
-sld.slice.create
-  ↓
-ajustes livres
-  ↓
-sld.slice.clarify (opcional, quando necessario)
+sld-slice-create
   ↓
 ajustes livres
   ↓
-sld.slice.plan-tasks
+sld-slice-clarify (opcional, quando necessario)
   ↓
-sld.slice.implement
+ajustes livres
   ↓
-sld.slice.close
+sld-slice-plan-tasks
+  ↓
+sld-slice-implement
+  ↓
+sld-slice-close
   ↓
 checks
   ↓
@@ -439,7 +439,7 @@ Esse fluxo cria um loop evolutivo:
 track → slice → implement → refine → learn → update track → next slice
 ```
 
-As etapas `sld.track.clarify` e `sld.slice.clarify` sao opcionais. Devem ser
+As etapas `sld-track-clarify` e `sld-slice-clarify` sao opcionais. Devem ser
 usadas quando a complexidade da feature, a quantidade de decisoes abertas ou
 a falta de clareza do operador justificar uma rodada explicita de
 clarificacao. Os ajustes livres continuam permitidos entre as etapas e podem
@@ -452,22 +452,22 @@ ser suficientes quando o contexto ja estiver claro.
 A baseline atual do SLD opera com estes comandos centrais:
 
 ```text
-sld.track.create
-sld.track.clarify
+sld-track-create
+sld-track-clarify
 
-sld.slice.create
-sld.slice.split
-sld.slice.clarify
+sld-slice-create
+sld-slice-split
+sld-slice-clarify
 
-sld.slice.plan-tasks
-sld.slice.implement
-sld.slice.close
+sld-slice-plan-tasks
+sld-slice-implement
+sld-slice-close
 
-sld.track.check
-sld.slice.check
+sld-track-check
+sld-slice-check
 ```
 
-### 7.1 `sld.track.create`
+### 7.1 `sld-track-create`
 
 Cria uma nova track evolutiva e marca essa track como a track atual.
 
@@ -483,7 +483,7 @@ Responsabilidades:
 A track criada não precisa estar perfeita. Ela precisa ser boa o suficiente
 para iniciar ajustes livres, uma clarificação opcional e a criação de slices.
 
-### 7.2 `sld.track.clarify`
+### 7.2 `sld-track-clarify`
 
 Detalha, amadurece e reduz ambiguidades da track atual.
 
@@ -498,7 +498,7 @@ Responsabilidades:
 
 Essa skill não tem como foco validar consistência formal. Seu papel principal é enriquecer e detalhar a track.
 
-### 7.3 `sld.slice.create`
+### 7.3 `sld-slice-create`
 
 Cria o próximo slice da track atual e marca esse slice como o slice atual.
 
@@ -524,7 +524,7 @@ Um slice deve ser rejeitado ou dividido quando:
 * não puder ser revisado em pouco tempo;
 * tentar resolver a track inteira.
 
-### 7.3.1 `sld.slice.split`
+### 7.3.1 `sld-slice-split`
 
 Propõe a divisao de uma slice grande em slices menores antes da implementacao.
 
@@ -537,7 +537,7 @@ Responsabilidades:
 
 Essa skill nao cria slices automaticamente; ela prepara uma proposta para validacao do desenvolvedor.
 
-### 7.4 `sld.slice.clarify`
+### 7.4 `sld-slice-clarify`
 
 Detalha, amadurece e reduz ambiguidades do slice atual.
 
@@ -553,7 +553,7 @@ Responsabilidades:
 
 Essa skill ajuda a garantir que o slice está pronto para execução, mas sem substituir uma validação formal de consistência.
 
-### 7.5 `sld.slice.plan-tasks`
+### 7.5 `sld-slice-plan-tasks`
 
 Planeja as tasks da slice atual.
 
@@ -568,7 +568,7 @@ Responsabilidades:
 
 As tasks devem ter formato consistente e legivel para revisao rapida pelo desenvolvedor.
 
-### 7.6 `sld.slice.implement`
+### 7.6 `sld-slice-implement`
 
 Executa as tasks planejadas da slice atual.
 
@@ -580,15 +580,15 @@ Responsabilidades:
 * registrar desvios, bloqueios e decisões;
 * preparar o fechamento da slice.
 
-`sld.slice.implement` não deve expandir o escopo do slice sem sinalizar. Se uma task revelar trabalho adicional significativo, isso deve preferencialmente virar outro slice.
+`sld-slice-implement` não deve expandir o escopo do slice sem sinalizar. Se uma task revelar trabalho adicional significativo, isso deve preferencialmente virar outro slice.
 
 Regra hard de execucao:
 
-* implementacao em contexto de track/slice so pode ocorrer via `sld.slice.implement` com tasks previamente planejadas;
-* fora de `sld.slice.implement`, o fluxo deve ficar restrito a planejamento, clarificacao, checks, documentacao e ajustes livres explicitamente permitidos no fluxo;
+* implementacao em contexto de track/slice so pode ocorrer via `sld-slice-implement` com tasks previamente planejadas;
+* fora de `sld-slice-implement`, o fluxo deve ficar restrito a planejamento, clarificacao, checks, documentacao e ajustes livres explicitamente permitidos no fluxo;
 * excecoes so podem ocorrer com ordem e confirmacao explicita do desenvolvedor no prompt atual.
 
-### 7.7 `sld.slice.close`
+### 7.7 `sld-slice-close`
 
 Fecha a slice ativa, registra aprendizado local, consolida aprendizados na track e atualiza artefatos de acompanhamento.
 
@@ -693,12 +693,12 @@ Liste riscos, hipóteses e dependências.
 ## Tasks
 Status: not_planned
 
-- (preencher em `sld.slice.plan-tasks`)
+- (preencher em `sld-slice-plan-tasks`)
 
 ## Execution Result
 Status: not_started
 
-- (preencher em `sld.slice.implement`)
+- (preencher em `sld-slice-implement`)
 
 ## Learning (local)
 
@@ -784,8 +784,8 @@ Exemplos:
 Skills de consistência disponíveis:
 
 ```text
-sld.track.check
-sld.slice.check
+sld-track-check
+sld-slice-check
 ```
 
 ---
@@ -898,7 +898,7 @@ Usar a track como lista de desejos sem priorização ou direção.
 ### Criar uma track
 
 ```text
-sld.track.create improve-agent-reliability
+sld-track-create improve-agent-reliability
 ```
 
 Resultado esperado:
@@ -913,7 +913,7 @@ Resultado esperado:
 ### Clarificar a track
 
 ```text
-sld.track.clarify
+sld-track-clarify
 ```
 
 Resultado esperado:
@@ -926,7 +926,7 @@ Resultado esperado:
 ### Criar um slice
 
 ```text
-sld.slice.create add-evaluation-baseline
+sld-slice-create add-evaluation-baseline
 ```
 
 Resultado esperado:
@@ -939,7 +939,7 @@ Resultado esperado:
 ### Clarificar o slice
 
 ```text
-sld.slice.clarify
+sld-slice-clarify
 ```
 
 Resultado esperado:
@@ -952,7 +952,7 @@ Resultado esperado:
 ### Planejar tasks
 
 ```text
-sld.slice.plan-tasks
+sld-slice-plan-tasks
 ```
 
 Resultado esperado:
@@ -965,7 +965,7 @@ Resultado esperado:
 ### Implementar slice
 
 ```text
-sld.slice.implement
+sld-slice-implement
 ```
 
 Resultado esperado:
@@ -977,7 +977,7 @@ Resultado esperado:
 ### Fechar slice
 
 ```text
-sld.slice.close
+sld-slice-close
 ```
 
 Resultado esperado:
@@ -994,50 +994,50 @@ Resultado esperado:
 Além das skills base, o SLD opera com as seguintes skills:
 
 ```text
-sld.track.check
-sld.slice.check
-sld.retro
-sld.adr
-sld.example
-sld.roadmap.plan
-sld.roadmap.check
-sld.roadmap.sync
-sld.learning.consolidate
+sld-track-check
+sld-slice-check
+sld-retro
+sld-adr
+sld-example
+sld-roadmap-plan
+sld-roadmap-check
+sld-roadmap-sync
+sld-learning-consolidate
 ```
 
-### `sld.track.check`
+### `sld-track-check`
 
 Valida consistência da track.
 
-### `sld.slice.check`
+### `sld-slice-check`
 
 Valida consistência do slice atual.
 
-### `sld.retro`
+### `sld-retro`
 
 Faz retrospectiva de uma track ou conjunto de slices.
 
-### `sld.adr`
+### `sld-adr`
 
 Gera ADRs a partir de decisões recorrentes ou relevantes.
 
-### `sld.example`
+### `sld-example`
 
 Transforma uma implementação boa em exemplo reutilizável.
 
-### `sld.roadmap.plan`
+### `sld-roadmap-plan`
 
 Planeja ou atualiza o roadmap de slices da track ativa.
 
-### `sld.roadmap.check`
+### `sld-roadmap-check`
 
 Valida consistência técnica e estrutural do roadmap da track ativa.
 
-### `sld.roadmap.sync`
+### `sld-roadmap-sync`
 
 Sincroniza roadmap planejado com slices reais criadas/executadas.
 
-### `sld.learning.consolidate`
+### `sld-learning-consolidate`
 
 Consolida aprendizados locais de track/slices e propõe promoção para camadas mais altas do projeto quando houver ganho real.
 Quando a promocao for de reforco operacional de agente, registrar em arquivo de orientacoes do agente definido pelo projeto.

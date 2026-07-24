@@ -10,10 +10,10 @@ target="${1:-}"
 status=0
 
 base_skills=(
-  track.create track.clarify slice.create slice.split slice.clarify
-  slice.plan-tasks slice.implement slice.close track.check slice.check
-  retro adr example roadmap.plan roadmap.check roadmap.sync
-  learning.consolidate
+  track-create track-clarify slice-create slice-split slice-clarify
+  slice-plan-tasks slice-implement slice-close track-check slice-check
+  retro adr example roadmap-plan roadmap-check roadmap-sync
+  learning-consolidate
 )
 
 base_scripts=(
@@ -44,12 +44,16 @@ check_one() {
   done
 
   for base_skill in "${base_skills[@]}"; do
-    local custom_skill="$dir/skills/sld.$custom_name.$base_skill"
+    local base_slug
+    base_slug="$base_skill"
+    local custom_skill="$dir/skills/sld-$custom_name-$base_slug"
+    local expected_name="sld-$custom_name-$base_slug"
+    local expected_base="sld-$base_slug"
     [[ -f "$custom_skill/SKILL.md" ]] || { err "skill custom ausente: $custom_skill/SKILL.md"; status=1; continue; }
-    grep -q "^name: sld\\.$custom_name\\.$base_skill$" "$custom_skill/SKILL.md" || {
+    grep -q "^name: $expected_name$" "$custom_skill/SKILL.md" || {
       err "nome de skill custom invalido: $custom_skill/SKILL.md"; status=1;
     }
-    grep -q "^- extends: sld\\.$base_skill$" "$custom_skill/SKILL.md" || {
+    grep -q "^- extends: $expected_base$" "$custom_skill/SKILL.md" || {
       err "heranca ausente: $custom_skill/SKILL.md"; status=1;
     }
   done
