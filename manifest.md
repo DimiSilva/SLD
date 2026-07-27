@@ -126,7 +126,6 @@ Esse é um dos diferenciais centrais do SLD. O objetivo não é apenas entregar 
 Um learning pode virar:
 
 * guideline;
-* ADR;
 * exemplo de implementação;
 * checklist;
 * atualização da track;
@@ -162,7 +161,6 @@ Estrutura base recomendada:
   templates/
     track.md.tpl
     slice.md.tpl
-    adr.md.tpl
     example.md.tpl
     roadmap.md.tpl
   skills/
@@ -325,7 +323,7 @@ Nao criar `contracts.md` quando nao houver necessidade real de contrato/dados.
 
 ### 5.6 `.sld/templates/` (opcional)
 
-Diretorio opcional com templates reutilizaveis para gerar artefatos da metodologia (`track`, `slice`, `adr`, `example`, `roadmap`).
+Diretorio opcional com templates reutilizaveis para gerar artefatos da metodologia (`track`, `slice`, `example`, `roadmap`).
 
 ### 5.7 `.sld/skills/` (opcional)
 
@@ -372,7 +370,6 @@ Estrutura gerada por `sld-custom-create`:
   state/
     current-track
   tracks/
-  adrs/
   guidelines/
   examples/
   scripts/
@@ -639,7 +636,7 @@ Foco:
 * itens executados fora do escopo original;
 * aprendizados que merecem consolidacao futura.
 
-Estruturas de direcionamento do projeto (guidelines, ADRs, examples) devem ser tratadas com rigor: so levantar propostas quando houver relevancia alta e beneficio claro.
+Estruturas de direcionamento do projeto (guidelines, examples) devem ser tratadas com rigor: so levantar propostas quando houver relevancia alta e beneficio claro.
 Pontos pouco relevantes devem permanecer como aprendizado da slice/track, sem gerar artefatos globais.
 
 ---
@@ -779,7 +776,7 @@ Exemplos:
 * encontrar contradições;
 * validar se as tasks respeitam o estado atual;
 * verificar se aprendizados foram registrados;
-* identificar se uma decisão deveria virar ADR.
+* identificar se uma decisão deveria virar guideline.
 
 Skills de consistência disponíveis:
 
@@ -881,7 +878,7 @@ Planejar refinamento detalhado antes da implementação existir.
 
 ### 15.5 Learning prematuro
 
-Gerar guidelines ou ADRs sem evidência suficiente da execução.
+Gerar guidelines sem evidência suficiente da execução.
 
 ### 15.6 IA expandindo escopo silenciosamente
 
@@ -997,7 +994,6 @@ Além das skills base, o SLD opera com as seguintes skills:
 sld-track-check
 sld-slice-check
 sld-retro
-sld-adr
 sld-example
 sld-roadmap-plan
 sld-roadmap-check
@@ -1016,10 +1012,6 @@ Valida consistência do slice atual.
 ### `sld-retro`
 
 Faz retrospectiva de uma track ou conjunto de slices.
-
-### `sld-adr`
-
-Gera ADRs a partir de decisões recorrentes ou relevantes.
 
 ### `sld-example`
 

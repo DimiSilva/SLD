@@ -18,7 +18,6 @@ Consolida aprendizados locais (tracks/slices fechadas) e promove apenas o que te
 - `<tracks-root>/_learning-consolidation-log.md` (registry obrigatorio)
 - `.sld/manifest.md`
 - `.sld/config.yaml`
-- `paths.adrs_root` em `.sld/config.yaml`
 - `paths.guidelines_root` em `.sld/config.yaml`
 - `paths.examples_root` em `.sld/config.yaml`
 - `docs/agent-reinforcements.md`

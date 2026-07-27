@@ -12,7 +12,6 @@ Atuar como guarda tecnico do roadmap, apontando conflitos de ordem, dependencia,
 - `track.md`
 - `roadmap.md`
 - `.sld/manifest.md`
-- `paths.adrs_root` em `.sld/config.yaml`
 - `paths.guidelines_root` em `.sld/config.yaml`
 
 ## Validacoes obrigatorias

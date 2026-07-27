@@ -2,7 +2,6 @@ version: 1
 
 paths:
   tracks_root: docs/tracks
-  adrs_root: docs/adrs
   guidelines_root: docs/guidelines
   examples_root: docs/examples
   custom_root: .sld/custom

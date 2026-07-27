@@ -44,7 +44,7 @@ Quando houver planejamento de multiplas slices, manter e revisar `roadmap.md` da
   `templates-root` correspondentes; nao usar estado global por engano.
 - Antes de `sld-slice-implement`, garantir que houve `sld-slice-plan-tasks` na mesma slice.
 - Ao final de cada slice, rodar checks de track/slice e naming/arquivos obrigatorios.
-- Se houver conflito com ADRs ou guidelines, conforme caminhos no config do
+- Se houver conflito com guidelines, conforme caminhos no config do
   contexto, pausar e pedir alinhamento.
 - Implementacao durante contexto de track/slice so pode ocorrer via `sld-slice-implement` com tasks previamente planejadas.
 - Fora de `sld-slice-implement`, permitir apenas planejamento, clarificacao, check, documentacao e ajustes livres explicitamente permitidos no fluxo.

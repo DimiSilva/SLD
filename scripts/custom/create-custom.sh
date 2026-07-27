@@ -15,7 +15,7 @@ name_slug="$(slugify "$name_input")"
 custom_dir="$REPO_ROOT/$custom_root/$name_slug"
 [[ ! -e "$custom_dir" ]] || usage_error "customizacao ja existe: $custom_dir"
 
-mkdir -p "$custom_dir"/{scripts/{core,track,slice,check},skills,templates,state,tracks,adrs,guidelines,examples}
+mkdir -p "$custom_dir"/{scripts/{core,track,slice,check},skills,templates,state,tracks,guidelines,examples}
 cat > "$custom_dir/manifest.md" <<EOF
 # SLD Custom: $name_slug
 
@@ -42,7 +42,6 @@ custom:
 
 paths:
   tracks_root: .sld/custom/$name_slug/tracks
-  adrs_root: .sld/custom/$name_slug/adrs
   guidelines_root: .sld/custom/$name_slug/guidelines
   examples_root: .sld/custom/$name_slug/examples
   state_root: .sld/custom/$name_slug/state
@@ -128,7 +127,6 @@ while IFS= read -r template; do
 done <<'EOF'
 track.md.tpl
 slice.md.tpl
-adr.md.tpl
 example.md.tpl
 roadmap.md.tpl
 EOF
@@ -147,7 +145,6 @@ slice-close
 track-check
 slice-check
 retro
-adr
 example
 roadmap-plan
 roadmap-check

@@ -55,7 +55,7 @@ Isso cria ou atualiza:
       templates/
 ```
 
-Por padrão, os artefatos de trabalho ficam em `docs/tracks`, `docs/adrs`,
+Por padrão, os artefatos de trabalho ficam em `docs/tracks`,
 `docs/guidelines` e `docs/examples`, conforme `.sld/config.yaml`.
 
 ## Atualizar a instalação
@@ -136,7 +136,7 @@ SLD_TRACKS_ROOT=work/tracks /caminho/para/sld/install.sh
 - `SLD_INSTALL_AGENTS=1`: copia `AGENTS.md` para a raiz do projeto se não existir.
 - `SLD_FORCE=1`: permite sobrescrever `AGENTS.md` quando `SLD_INSTALL_AGENTS=1`.
 - `SLD_FORCE_CONFIG=1`: permite sobrescrever `.sld/config.yaml`; sem isso, a configuração existente é preservada.
-- `SLD_TRACKS_ROOT`, `SLD_ADRS_ROOT`, `SLD_GUIDELINES_ROOT`, `SLD_EXAMPLES_ROOT`: personalizam os caminhos iniciais no `config.yaml`.
+- `SLD_TRACKS_ROOT`, `SLD_GUIDELINES_ROOT`, `SLD_EXAMPLES_ROOT`: personalizam os caminhos iniciais no `config.yaml`.
 - `SLD_CUSTOM_ROOT`: caminho das customizações SLD. Padrão: `.sld/custom`.
 
 ## Fluxo atual

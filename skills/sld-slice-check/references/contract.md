@@ -29,7 +29,6 @@ Esses pontos pertencem ao `sld-slice-clarify`.
 - `track.md` da track ativa
 - `.sld/config.yaml`
 - `.sld/manifest.md`
-- `paths.adrs_root` em `.sld/config.yaml`
 - `paths.guidelines_root` em `.sld/config.yaml`
 
 ## Validacoes obrigatorias
@@ -65,7 +64,7 @@ Esses pontos pertencem ao `sld-slice-clarify`.
 - quando houver task de contrato/tipagem/dados no plano, `contracts.md` deve existir na pasta da slice e estar coerente com o escopo.
 
 6. Governanca tecnica
-- nenhum desvio explicito de ADR/guideline sem registro e alinhamento.
+- nenhum desvio explicito de guideline sem registro e alinhamento.
 - nenhum sinal de escopo tecnico inflado sem proposta de split.
 
 ## Regras de execucao

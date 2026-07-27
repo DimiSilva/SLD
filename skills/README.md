@@ -17,7 +17,6 @@ Skills base disponiveis (fluxo atual):
 - sld-track-check
 - sld-slice-check
 - sld-retro
-- sld-adr
 - sld-example
 - sld-roadmap-plan
 - sld-roadmap-check

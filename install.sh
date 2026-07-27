@@ -7,7 +7,6 @@ SLD_DIR="$TARGET_DIR/.sld"
 TEMP_DIR=""
 
 tracks_root="${SLD_TRACKS_ROOT:-docs/tracks}"
-adrs_root="${SLD_ADRS_ROOT:-docs/adrs}"
 guidelines_root="${SLD_GUIDELINES_ROOT:-docs/guidelines}"
 examples_root="${SLD_EXAMPLES_ROOT:-docs/examples}"
 custom_root="${SLD_CUSTOM_ROOT:-.sld/custom}"
@@ -34,7 +33,6 @@ Environment:
   SLD_FORCE=1                 Overwrite AGENTS.md when SLD_INSTALL_AGENTS=1.
   SLD_FORCE_CONFIG=1          Overwrite .sld/config.yaml.
   SLD_TRACKS_ROOT=<path>      Default: docs/tracks.
-  SLD_ADRS_ROOT=<path>        Default: docs/adrs.
   SLD_GUIDELINES_ROOT=<path>  Default: docs/guidelines.
   SLD_EXAMPLES_ROOT=<path>    Default: docs/examples.
   SLD_CUSTOM_ROOT=<path>      Default: .sld/custom.
@@ -138,7 +136,6 @@ version: 1
 
 paths:
   tracks_root: $tracks_root
-  adrs_root: $adrs_root
   guidelines_root: $guidelines_root
   examples_root: $examples_root
   custom_root: $custom_root
@@ -157,13 +154,12 @@ touch "$SLD_DIR/current-track"
 
 if [[ -f "$SLD_DIR/config.yaml" ]]; then
   tracks_root="$(awk '/^paths:[[:space:]]*$/{p=1; next} p && /^[^[:space:]]/{p=0} p && /^[[:space:]]+tracks_root:/{sub(/^[^:]+:[[:space:]]*/, ""); print; exit}' "$SLD_DIR/config.yaml")"
-  adrs_root="$(awk '/^paths:[[:space:]]*$/{p=1; next} p && /^[^[:space:]]/{p=0} p && /^[[:space:]]+adrs_root:/{sub(/^[^:]+:[[:space:]]*/, ""); print; exit}' "$SLD_DIR/config.yaml")"
   guidelines_root="$(awk '/^paths:[[:space:]]*$/{p=1; next} p && /^[^[:space:]]/{p=0} p && /^[[:space:]]+guidelines_root:/{sub(/^[^:]+:[[:space:]]*/, ""); print; exit}' "$SLD_DIR/config.yaml")"
   examples_root="$(awk '/^paths:[[:space:]]*$/{p=1; next} p && /^[^[:space:]]/{p=0} p && /^[[:space:]]+examples_root:/{sub(/^[^:]+:[[:space:]]*/, ""); print; exit}' "$SLD_DIR/config.yaml")"
   custom_root="$(awk '/^paths:[[:space:]]*$/{p=1; next} p && /^[^[:space:]]/{p=0} p && /^[[:space:]]+custom_root:/{sub(/^[^:]+:[[:space:]]*/, ""); print; exit}' "$SLD_DIR/config.yaml")"
 fi
 
-mkdir -p "$TARGET_DIR/${tracks_root:-docs/tracks}" "$TARGET_DIR/${adrs_root:-docs/adrs}" "$TARGET_DIR/${guidelines_root:-docs/guidelines}" "$TARGET_DIR/${examples_root:-docs/examples}" "$TARGET_DIR/${custom_root:-.sld/custom}"
+mkdir -p "$TARGET_DIR/${tracks_root:-docs/tracks}" "$TARGET_DIR/${guidelines_root:-docs/guidelines}" "$TARGET_DIR/${examples_root:-docs/examples}" "$TARGET_DIR/${custom_root:-.sld/custom}"
 
 if [[ "${SLD_INSTALL_AGENTS:-0}" == "1" ]]; then
   require_source "AGENTS.md"
@@ -180,7 +176,6 @@ cat <<EOF
 SLD installed:
   framework: $SLD_DIR
   tracks:    $TARGET_DIR/$tracks_root
-  adrs:      $TARGET_DIR/$adrs_root
   guidelines:$TARGET_DIR/$guidelines_root
   examples:  $TARGET_DIR/$examples_root
 EOF

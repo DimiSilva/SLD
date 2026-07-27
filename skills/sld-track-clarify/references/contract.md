@@ -15,8 +15,7 @@ Revisa criticamente a track atual para identificar inconsistencias, ambiguidades
 - `track.md` da track ativa
 - `.sld/manifest.md`
 - `.sld/config.yaml`
-- `paths.adrs_root` e `paths.guidelines_root` em `.sld/config.yaml` (quando aplicavel)
-
+- `
 ## Metodo
 
 1. ler a track atual e validar coerencia entre:
@@ -40,7 +39,7 @@ Revisa criticamente a track atual para identificar inconsistencias, ambiguidades
 - limites operacionais nao definidos;
 - comportamento em erro/timeout/falha parcial;
 - criterios de sucesso nao objetivos;
-- conflitos com ADRs/guidelines;
+- conflitos com guidelines;
 - escopo inflado ou mal delimitado.
 
 Exemplos de perguntas esperadas:
@@ -80,7 +79,7 @@ Divisoria obrigatoria entre questoes:
 
 - nao inventar resposta quando a lacuna for critica;
 - usar suposicoes apenas para detalhes de baixo impacto;
-- se houver conflito com ADR/guideline, pausar e pedir alinhamento explicito;
+- se houver conflito com guideline, pausar e pedir alinhamento explicito;
 - nao expandir escopo silenciosamente.
 
 ## Saida esperada

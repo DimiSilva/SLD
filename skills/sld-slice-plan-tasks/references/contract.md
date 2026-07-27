@@ -16,8 +16,7 @@ Planeja tasks tecnicas da slice ativa de forma atomica, ordenada e verificavel.
 - `track.md` da track ativa
 - `.sld/config.yaml`
 - `.sld/manifest.md`
-- `paths.adrs_root` e `paths.guidelines_root` em `.sld/config.yaml`
-
+- `
 ## Regras
 
 - gerar 5-8 tasks por rodada;
@@ -50,4 +49,4 @@ Planeja tasks tecnicas da slice ativa de forma atomica, ordenada e verificavel.
 ## Criterio de aprovacao
 
 - `planned` quando o plano estiver objetivo e verificavel;
-- `blocked` quando faltar contexto critico ou houver conflito com guideline/ADR.
+- `blocked` quando faltar contexto critico ou houver conflito com guideline.

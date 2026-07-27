@@ -29,7 +29,6 @@ Esses pontos pertencem ao `sld-track-clarify`.
 - `slice.md` dos slices existentes (quando houver)
 - `.sld/config.yaml`
 - `.sld/manifest.md`
-- `paths.adrs_root` em `.sld/config.yaml`
 - `paths.guidelines_root` em `.sld/config.yaml`
 
 ## Validacoes obrigatorias
@@ -53,7 +52,7 @@ Esses pontos pertencem ao `sld-track-clarify`.
 - se houver multiplas slices, nao deve haver sobreposicao de escopo sem justificativa.
 
 4. Governanca tecnica
-- nenhum desvio explicito de ADR/guideline sem registro e alinhamento;
+- nenhum desvio explicito de guideline sem registro e alinhamento;
 - plano tecnico da track nao deve propor caminho que viole padroes de desenvolvimento ativos do repositorio.
 
 5. Direcao tecnica e manutencao

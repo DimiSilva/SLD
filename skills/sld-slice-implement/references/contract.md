@@ -16,8 +16,7 @@ Executa as tasks planejadas da slice ativa e registra resultado/evidencias.
 - plano de tasks ja registrado na slice
 - `.sld/config.yaml`
 - `.sld/manifest.md`
-- `paths.adrs_root` e `paths.guidelines_root` em `.sld/config.yaml`
-
+- `
 ## Regras
 
 - executar tasks em ordem, salvo justificativa explicita;

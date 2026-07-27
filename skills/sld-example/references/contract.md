@@ -8,7 +8,7 @@ Atuar como mecanismo de reaproveitamento pratico: transformar um padrao que func
 
 Nao e papel desta skill:
 
-- criar guideline global (isso pertence a ADR/guideline);
+- criar guideline global (isso pertence ao escopo da customização);
 - registrar exemplo sem evidencia de uso real;
 - produzir exemplo generico sem limite de aplicacao.
 

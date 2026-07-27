@@ -25,7 +25,7 @@ Cria uma nova track SLD com nome no padrao `<unix-timestamp-seconds>-name`, defi
 - fazer suposicoes razoaveis quando houver lacunas pequenas.
 - abrir no maximo 3 perguntas de clarificacao apenas para ambiguidades criticas.
 - priorizar clarificacoes por impacto: escopo > seguranca/compliance > UX > detalhe tecnico.
-- se houver conflito com ADRs ou guidelines nos caminhos configurados em `.sld/config.yaml`, pausar e pedir alinhamento antes de continuar.
+- se houver conflito com guidelines nos caminhos configurados em `.sld/config.yaml`, pausar e pedir alinhamento antes de continuar.
 
 ## Execucao padrao
 
@@ -72,7 +72,7 @@ os ajustes livres podem ser suficientes.
 - escopo inicial esta delimitado (com non-goals);
 - restricoes principais estao registradas;
 - perguntas em aberto estao explicitas;
-- nao ha conflito conhecido com ADR/guideline.
+- nao ha conflito conhecido com guideline.
 
 ## Saida esperada do agente
 
