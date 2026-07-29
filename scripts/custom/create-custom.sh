@@ -128,7 +128,8 @@ done <<'EOF'
 track.md.tpl
 slice.md.tpl
 example.md.tpl
-roadmap.md.tpl
+roadmap-objectives.md.tpl
+roadmap-slices.md.tpl
 EOF
 
 while IFS= read -r base_skill; do
@@ -146,9 +147,8 @@ track-check
 slice-check
 retro
 example
-roadmap-plan
-roadmap-check
-roadmap-sync
+track-roadmap-objectives
+track-roadmap-slices
 learning-consolidate
 EOF
 

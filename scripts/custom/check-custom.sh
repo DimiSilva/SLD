@@ -12,7 +12,7 @@ status=0
 base_skills=(
   track-create track-clarify slice-create slice-split slice-clarify
   slice-plan-tasks slice-implement slice-close track-check slice-check
-  retro example roadmap-plan roadmap-check roadmap-sync
+  retro example track-roadmap-objectives track-roadmap-slices
   learning-consolidate
 )
 
@@ -23,7 +23,7 @@ base_scripts=(
   check/check-naming.sh check/check-required-files.sh
 )
 
-base_templates=(track.md.tpl slice.md.tpl example.md.tpl roadmap.md.tpl)
+base_templates=(track.md.tpl slice.md.tpl example.md.tpl roadmap-objectives.md.tpl roadmap-slices.md.tpl)
 
 check_one() {
   local dir="$1"

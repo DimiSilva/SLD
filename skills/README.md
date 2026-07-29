@@ -18,9 +18,8 @@ Skills base disponiveis (fluxo atual):
 - sld-slice-check
 - sld-retro
 - sld-example
-- sld-roadmap-plan
-- sld-roadmap-check
-- sld-roadmap-sync
+- sld-track-roadmap-objectives
+- sld-track-roadmap-slices
 - sld-learning-consolidate
 
 Skills de customizacao:

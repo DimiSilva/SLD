@@ -29,6 +29,16 @@ render_template \
   "$track_dir/track.md" \
   TRACK_NAME "$track_name"
 
+render_template \
+  "$SLD_TEMPLATES_ROOT/roadmap-objectives.md.tpl" \
+  "$track_dir/roadmap-objectives.md" \
+  TRACK_NAME "$track_name"
+
+render_template \
+  "$SLD_TEMPLATES_ROOT/roadmap-slices.md.tpl" \
+  "$track_dir/roadmap-slices.md" \
+  TRACK_NAME "$track_name"
+
 mkdir -p "$SLD_STATE_ROOT"
 printf '%s/%s\n' "$tracks_root" "$track_name" > "$SLD_STATE_ROOT/current-track"
 

@@ -15,7 +15,7 @@ Fecha a slice ativa de forma controlada, sem etapa de classificacao de cumprimen
 - `.sld/current-track`
 - `.current-slice` da track ativa
 - `slice.md` do slice ativo
-- `track.md`, `learnings.md` e `roadmap.md` (se existir)
+- `track.md`, `learnings.md`, `roadmap-objectives.md` e `roadmap-slices.md` (se existirem)
 - `.sld/config.yaml`
 - `.sld/manifest.md`
 

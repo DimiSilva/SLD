@@ -35,7 +35,8 @@ sld-track-create -> (ajustes livres) -> [sld-track-clarify, opcional]
 ```
 
 Se o slice estiver grande demais, usar `sld-slice-split` antes de seguir para implementacao.
-Quando houver planejamento de multiplas slices, manter e revisar `roadmap.md` da track.
+Quando houver planejamento de multiplas slices, manter e revisar
+`roadmap-objectives.md` e `roadmap-slices.md` da track.
 
 ## Regras operacionais
 

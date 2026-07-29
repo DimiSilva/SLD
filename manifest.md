@@ -162,7 +162,8 @@ Estrutura base recomendada:
     track.md.tpl
     slice.md.tpl
     example.md.tpl
-    roadmap.md.tpl
+    roadmap-objectives.md.tpl
+    roadmap-slices.md.tpl
   skills/
     README.md
     sld-track-create/SKILL.md
@@ -180,7 +181,8 @@ Estrutura base recomendada:
   <track-name>/
     track.md
     learnings.md
-    roadmap.md
+    roadmap-objectives.md
+    roadmap-slices.md
     .current-slice
     slices/
       <unix-timestamp-seconds>-<slice-name>/
@@ -291,9 +293,13 @@ Ele deve representar o estado atual da direção evolutiva, não um histórico c
 
 Aprendizados consolidados da track.
 
-### 5.4.1 `roadmap.md`
+### 5.4.1 `roadmap-objectives.md`
 
-Roadmap de slices planejadas para evolucao da track.
+Roadmap dos objetivos macro que orientam a evolucao da track.
+
+### 5.4.2 `roadmap-slices.md`
+
+Roadmap tecnico das slices planejadas para contribuir com os objetivos da track.
 
 ### 5.5 `slice.md`
 
@@ -323,7 +329,7 @@ Nao criar `contracts.md` quando nao houver necessidade real de contrato/dados.
 
 ### 5.6 `.sld/templates/` (opcional)
 
-Diretorio opcional com templates reutilizaveis para gerar artefatos da metodologia (`track`, `slice`, `example`, `roadmap`).
+Diretorio opcional com templates reutilizaveis para gerar artefatos da metodologia (`track`, `slice`, `example`, `roadmap-objectives`, `roadmap-slices`).
 
 ### 5.7 `.sld/skills/` (opcional)
 
@@ -995,9 +1001,8 @@ sld-track-check
 sld-slice-check
 sld-retro
 sld-example
-sld-roadmap-plan
-sld-roadmap-check
-sld-roadmap-sync
+sld-track-roadmap-objectives
+sld-track-roadmap-slices
 sld-learning-consolidate
 ```
 
@@ -1017,17 +1022,14 @@ Faz retrospectiva de uma track ou conjunto de slices.
 
 Transforma uma implementação boa em exemplo reutilizável.
 
-### `sld-roadmap-plan`
+### `sld-track-roadmap-objectives`
 
-Planeja ou atualiza o roadmap de slices da track ativa.
+Cria ou atualiza o roadmap de objetivos macro da track ativa.
 
-### `sld-roadmap-check`
+### `sld-track-roadmap-slices`
 
-Valida consistência técnica e estrutural do roadmap da track ativa.
-
-### `sld-roadmap-sync`
-
-Sincroniza roadmap planejado com slices reais criadas/executadas.
+Cria ou atualiza o roadmap técnico de slices da track ativa, vinculando slices
+planejadas aos objetivos correspondentes.
 
 ### `sld-learning-consolidate`
 
