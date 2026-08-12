@@ -297,9 +297,17 @@ Aprendizados consolidados da track.
 
 Roadmap dos objetivos macro que orientam a evolucao da track.
 
+Ao criar uma track, este arquivo deve nascer com a lista de objetivos vazia.
+Objetivos iniciais so devem ser incluidos quando forem especificados
+explicitamente no pedido de criacao da track.
+
 ### 5.4.2 `roadmap-slices.md`
 
 Roadmap tecnico das slices planejadas para contribuir com os objetivos da track.
+
+Ao criar uma track, este arquivo deve nascer com a lista de slices vazia.
+Slices iniciais so devem ser incluidas quando forem especificadas
+explicitamente no pedido de criacao da track.
 
 ### 5.5 `slice.md`
 
@@ -480,8 +488,13 @@ Responsabilidades:
 * criar `track.md`;
 * criar `learnings.md`;
 * criar diretório `slices/`;
+* criar `roadmap-objectives.md` e `roadmap-slices.md` sem itens ficticios;
 * atualizar `.sld/current-track`;
 * registrar contexto, objetivo e direção desejada.
+
+Quando o pedido especificar objetivos ou slices iniciais, esses itens podem
+ser registrados nos roadmaps correspondentes. A skill nao deve inventa-los a
+partir apenas da direcao geral da track.
 
 A track criada não precisa estar perfeita. Ela precisa ser boa o suficiente
 para iniciar ajustes livres, uma clarificação opcional e a criação de slices.

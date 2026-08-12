@@ -19,6 +19,21 @@ Cria uma nova track SLD com nome no padrao `<unix-timestamp-seconds>-name`, defi
 - `constraints`: limites tecnicos, operacionais ou de negocio.
 - `non_goals`: o que nao sera tratado agora.
 
+## Entrada opcional
+
+- `objectives`: objetivos macro iniciais, quando ja definidos pelo usuario.
+- `slices`: slices iniciais, quando ja definidas pelo usuario.
+
+### Objetivos e slices iniciais (opcionais)
+
+- por padrao, criar `roadmap-objectives.md` e `roadmap-slices.md` com as listas
+  vazias;
+- incluir registros iniciais somente quando objetivos e/ou slices forem
+  especificados explicitamente no prompt;
+- nao inventar objetivos ou slices a partir da descricao geral da track;
+- quando houver slices especificadas, preservar apenas as informacoes
+  fornecidas e registrar lacunas em `Open Questions` ou nas notas do roadmap.
+
 ## Regras de decisao
 
 - usar o prompt do usuario como fonte primaria.
@@ -43,7 +58,10 @@ Cria uma nova track SLD com nome no padrao `<unix-timestamp-seconds>-name`, defi
    - `Constraints`
    - `Non-goals`
    - `Open Questions`
-5. confirmar que `.sld/current-track` aponta para a nova track.
+5. se o prompt especificar objetivos e/ou slices iniciais, registrar esses
+   itens nos roadmaps correspondentes; caso contrario, manter as listas
+   vazias.
+6. confirmar que `.sld/current-track` aponta para a nova track.
 
 ## Workflow recomendado apos create
 
@@ -63,8 +81,12 @@ os ajustes livres podem ser suficientes.
 - arquivos obrigatorios existentes:
   - `track.md`
   - `learnings.md`
+  - `roadmap-objectives.md`
+  - `roadmap-slices.md`
   - `slices/`
 - `.sld/current-track` atualizado com o caminho correto.
+- roadmaps sem registros ficticios quando nenhum objetivo ou slice inicial foi
+  especificado.
 
 ## Checklist de prontidao da track
 

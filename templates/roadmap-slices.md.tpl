@@ -6,7 +6,6 @@ Planeje os incrementos tecnicos que contribuem para os objetivos da track.
 
 | id | name | objective_ids | intent | priority | status | dependencies | notes |
 |----|------|---------------|--------|----------|--------|--------------|-------|
-| S1 | example-slice | O1 | Descreva o avanco tecnico | high | planned | - | - |
 
 ## Review Notes
 

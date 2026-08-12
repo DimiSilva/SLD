@@ -163,6 +163,10 @@ Depois da instalação:
 .sld/scripts/check/check-required-files.sh
 ```
 
+Ao criar uma track, `roadmap-objectives.md` e `roadmap-slices.md` tambem sao
+gerados, mas nascem vazios. Objetivos ou slices iniciais so entram quando
+forem especificados explicitamente no pedido de criacao.
+
 ## Nota de distribuição
 
 Este repositório guarda o pacote-fonte na raiz. Em projetos consumidores, o

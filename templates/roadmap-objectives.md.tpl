@@ -6,7 +6,6 @@ Defina os resultados macro que orientam a evolucao desta track.
 
 | id | objective | success indicators | priority | status | notes |
 |----|-----------|--------------------|----------|--------|-------|
-| O1 | Descreva um objetivo macro | Descreva como medir progresso | high | active | - |
 
 ## Review Notes
 
