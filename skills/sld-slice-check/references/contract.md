@@ -59,8 +59,14 @@ Esses pontos pertencem ao `sld-slice-clarify`.
 
 5. Tasks e disciplina de execucao
 - secao `Tasks` deve existir no `slice.md`.
-- quando houver execucao registrada, deve haver tasks planejadas antes (`sld-slice-plan-tasks` -> `sld-slice-implement`).
-- nao deve haver evidencia de execucao fora das tasks planejadas sem justificativa explicita.
+- para execucao via `sld-slice-implement`, deve haver tasks planejadas antes
+  (`sld-slice-plan-tasks` -> `sld-slice-implement`).
+- para execucao via `sld-slice-increment`, `Tasks` deve estar como
+  `not_applicable` e `Increment Log` deve possuir ao menos um registro valido.
+- `sld-slice-one-shot` deve deixar um plano de tasks valido e as evidencias da
+  execucao correspondente.
+- nao deve haver evidencia de execucao fora de tasks planejadas ou de
+  incrementos registrados.
 - quando houver task de contrato/tipagem/dados no plano, `contracts.md` deve existir na pasta da slice e estar coerente com o escopo.
 
 6. Governanca tecnica

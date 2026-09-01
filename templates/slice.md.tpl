@@ -22,11 +22,16 @@ Liste riscos, hipoteses e dependencias.
 Status: not_planned
 
 - (preencher em `sld-slice-plan-tasks`)
+- (no fluxo incremental, manter `not_applicable` e registrar os incrementos abaixo)
 
 ## Execution Result
 Status: not_started
 
 - (preencher em `sld-slice-implement`)
+
+## Increment Log
+
+- (preencher em `sld-slice-increment`; um incremento por chamada)
 
 ## Learning (local)
 

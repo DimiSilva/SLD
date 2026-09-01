@@ -11,6 +11,8 @@ Skills base disponiveis (fluxo atual):
 - sld-slice-create
 - sld-slice-split
 - sld-slice-clarify
+- sld-slice-one-shot
+- sld-slice-increment
 - sld-slice-plan-tasks
 - sld-slice-implement
 - sld-slice-close

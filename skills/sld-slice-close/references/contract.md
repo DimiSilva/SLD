@@ -15,6 +15,7 @@ Fecha a slice ativa de forma controlada, sem etapa de classificacao de cumprimen
 - `.sld/current-track`
 - `.current-slice` da track ativa
 - `slice.md` do slice ativo
+- `Increment Log`, quando a slice tiver usado `sld-slice-increment`
 - `track.md`, `learnings.md`, `roadmap-objectives.md` e `roadmap-slices.md` (se existirem)
 - `.sld/config.yaml`
 - `.sld/manifest.md`
@@ -23,6 +24,8 @@ Fecha a slice ativa de forma controlada, sem etapa de classificacao de cumprimen
 
 1. track e slice ativos existem e sao validos.
 2. usuario solicita o fechamento da slice.
+3. a implementacao planejada foi concluida ou existe evidencia suficiente no
+   `Increment Log` para avaliar os criterios de aceite.
 
 ## Learning no fechamento (obrigatorio)
 

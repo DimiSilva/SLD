@@ -140,6 +140,8 @@ track-clarify
 slice-create
 slice-split
 slice-clarify
+slice-one-shot
+slice-increment
 slice-plan-tasks
 slice-implement
 slice-close

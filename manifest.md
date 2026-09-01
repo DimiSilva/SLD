@@ -24,9 +24,15 @@ A partir desta revisao, o fluxo operacional oficial do SLD e:
 sld-track-create -> (ajustes livres) -> [sld-track-clarify, opcional]
 -> (ajustes livres) -> sld-slice-create -> (ajustes livres)
 -> [sld-slice-clarify, opcional] -> (ajustes livres)
--> sld-slice-plan-tasks -> (ajustes livres) -> sld-slice-implement
+-> [sld-slice-plan-tasks -> (ajustes livres) -> sld-slice-implement
+ |  sld-slice-increment (repetir ate cumprir o objetivo)]
 -> (ajustes livres) -> sld-slice-close -> checks
 ```
+
+Para ajustes pequenos, `sld-slice-one-shot` combina criacao, planejamento e
+implementacao em uma unica operacao. Para uma slice existente, o fluxo
+incremental pode usar `sld-slice-increment` repetidamente sem planejamento
+formal de tasks.
 
 Em caso de conflito entre secoes, esta secao e o capitulo `## 6. Fluxo operacional atual` prevalecem.
 
@@ -168,6 +174,8 @@ Estrutura base recomendada:
     README.md
     sld-track-create/SKILL.md
     sld-slice-implement/SKILL.md
+    sld-slice-one-shot/SKILL.md
+    sld-slice-increment/SKILL.md
   scripts/
     README.md
     core/
@@ -432,17 +440,19 @@ ajustes livres
 sld-slice-clarify (opcional, quando necessario)
   ↓
 ajustes livres
-  ↓
-sld-slice-plan-tasks
-  ↓
-sld-slice-implement
-  ↓
-sld-slice-close
+  ├─ sld-slice-plan-tasks -> sld-slice-implement ─┐
+  └─ sld-slice-increment (repetir ate cumprir) ───┤
+                                                  ↓
+                                         sld-slice-close
   ↓
 checks
   ↓
 proxima slice
 ```
+
+Como atalho para um ajuste pequeno sem slice preparada, usar
+`sld-slice-one-shot`, que executa criacao, planejamento e implementacao em uma
+unica operacao e depois segue para `sld-slice-close`.
 
 Esse fluxo cria um loop evolutivo:
 
@@ -469,6 +479,8 @@ sld-track-clarify
 sld-slice-create
 sld-slice-split
 sld-slice-clarify
+sld-slice-one-shot
+sld-slice-increment
 
 sld-slice-plan-tasks
 sld-slice-implement
@@ -569,6 +581,25 @@ Responsabilidades:
 
 Essa skill ajuda a garantir que o slice está pronto para execução, mas sem substituir uma validação formal de consistência.
 
+### 7.4.1 `sld-slice-one-shot`
+
+Combina criacao, planejamento e implementacao de uma slice pequena em uma
+unica operacao. Nao exige que a slice ou o plano existam antes da chamada,
+mas deve registrar um plano compacto antes de executar a implementacao.
+
+Deve ser usada quando houver um comportamento principal, escopo pequeno,
+criterios de aceite objetivos e baixo risco de decisoes abertas. Nao fecha a
+slice automaticamente.
+
+### 7.4.2 `sld-slice-increment`
+
+Executa um unico incremento sobre a slice existente, sem `plan-tasks`. Pode ser
+chamada repetidamente ate que os criterios de aceite sejam cumpridos.
+
+Cada chamada deve registrar um item em `Increment Log` com intencao, escopo,
+arquivos, validacao, resultado e proximo passo. A skill nao deve iniciar o
+proximo incremento automaticamente.
+
 ### 7.5 `sld-slice-plan-tasks`
 
 Planeja as tasks da slice atual.
@@ -598,10 +629,18 @@ Responsabilidades:
 
 `sld-slice-implement` não deve expandir o escopo do slice sem sinalizar. Se uma task revelar trabalho adicional significativo, isso deve preferencialmente virar outro slice.
 
+`sld-slice-implement` exige tasks planejadas. Uma slice sem tasks deve usar
+`sld-slice-increment`; para combinar criacao, planejamento e implementacao em
+uma chamada, usar `sld-slice-one-shot`.
+
 Regra hard de execucao:
 
-* implementacao em contexto de track/slice so pode ocorrer via `sld-slice-implement` com tasks previamente planejadas;
-* fora de `sld-slice-implement`, o fluxo deve ficar restrito a planejamento, clarificacao, checks, documentacao e ajustes livres explicitamente permitidos no fluxo;
+* implementacao em contexto de track/slice so pode ocorrer via
+  `sld-slice-implement` com tasks previamente planejadas, via
+  `sld-slice-increment` sobre uma slice existente ou via
+  `sld-slice-one-shot`;
+* fora dessas skills, o fluxo deve ficar restrito a planejamento, clarificacao,
+  checks, documentacao e ajustes livres explicitamente permitidos no fluxo;
 * excecoes so podem ocorrer com ordem e confirmacao explicita do desenvolvedor no prompt atual.
 
 ### 7.7 `sld-slice-close`
@@ -615,8 +654,8 @@ Fecha a slice ativa, registra aprendizado local, consolida aprendizados na track
 Uma slice passa por quatro momentos operacionais:
 
 * criacao e clarificacao;
-* planejamento de tasks;
-* implementacao das tasks planejadas;
+* planejamento de tasks, quando aplicavel;
+* implementacao das tasks planejadas ou de incrementos registrados;
 * fechamento com aprendizado local.
 
 ### 8.1 Planejamento de tasks
@@ -633,7 +672,8 @@ Foco:
 
 ### 8.2 Implementacao
 
-Objetivo: executar apenas as tasks planejadas da slice.
+Objetivo: executar as tasks planejadas da slice ou um incremento pequeno e
+verificavel registrado no `Increment Log`.
 
 Foco:
 
@@ -642,6 +682,9 @@ Foco:
 * validacoes essenciais;
 * registro de evidencias;
 * desvios explicitados.
+
+No fluxo incremental, cada chamada executa somente um incremento e reavalia
+os criterios de aceite. O proximo incremento requer uma nova chamada.
 
 ### 8.3 Fechamento e learning
 
@@ -715,6 +758,10 @@ Status: not_planned
 Status: not_started
 
 - (preencher em `sld-slice-implement`)
+
+## Increment Log
+
+- (preencher em `sld-slice-increment`; um incremento por chamada)
 
 ## Learning (local)
 
@@ -841,7 +888,9 @@ Exemplos:
 * não planejar refinement antes de implementation;
 * não planejar learning antes de refinement;
 * não criar próximo slice sem registrar aprendizado do slice atual, salvo exceção explícita;
-* nao executar implementacao sem tasks planejadas; quando nao houver tasks relevantes, registrar justificativa objetiva.
+* nao executar `sld-slice-implement` sem tasks planejadas;
+* usar `sld-slice-increment` para implementacao incremental sem plano;
+* `sld-slice-one-shot` deve gerar e registrar o plano antes de implementar.
 
 ---
 
@@ -978,6 +1027,31 @@ Resultado esperado:
 * validações esperadas;
 * riscos práticos.
 
+### Implementar em um incremento
+
+```text
+sld-slice-increment
+```
+
+Resultado esperado:
+
+* um pequeno incremento executado;
+* evidencia registrada no `Increment Log`;
+* indicação do próximo incremento ou do fechamento.
+
+### Implementar uma slice pequena em uma operação
+
+```text
+sld-slice-one-shot
+```
+
+Resultado esperado:
+
+* slice criada quando necessário;
+* plano compacto registrado internamente;
+* tasks implementadas e validadas;
+* slice pronta para fechamento.
+
 ### Implementar slice
 
 ```text
@@ -1062,13 +1136,13 @@ A unidade central de progresso não é a spec, nem o plano, nem a task.
 A unidade central de progresso é o **slice**.
 
 ```text
-Track → Slice → Task → Learning
+Track → Slice → Task/Increment → Learning
 ```
 
 O ciclo principal é:
 
 ```text
-Create track → Clarify track → Create slice → Clarify slice → Plan tasks → Implement slice → Close slice → Next slice
+Create track → Clarify track → Create slice → Plan/Increment → Implement → Close slice → Next slice
 ```
 
 O objetivo é que cada slice entregue três coisas:

@@ -38,18 +38,27 @@ Se o slice estiver grande demais, usar `sld-slice-split` antes de seguir para im
 Quando houver planejamento de multiplas slices, manter e revisar
 `roadmap-objectives.md` e `roadmap-slices.md` da track.
 
+Para ajustes pequenos, `sld-slice-one-shot` combina criacao, planejamento e
+implementacao. Para uma slice existente, `sld-slice-increment` permite
+incrementos sem plano formal.
+
 ## Regras operacionais
 
 - Antes de criar slice, confirmar `current-track` no state root do contexto.
 - Ao executar uma customizacao, sempre passar o `config.yaml`, `state-root` e
   `templates-root` correspondentes; nao usar estado global por engano.
-- Antes de `sld-slice-implement`, garantir que houve `sld-slice-plan-tasks` na mesma slice.
+- Ao usar `sld-slice-implement`, garantir que houve `sld-slice-plan-tasks` na mesma slice. O `sld-slice-one-shot` e a unica skill que pode gerar esse plano internamente antes de implementar.
 - Ao final de cada slice, rodar checks de track/slice e naming/arquivos obrigatorios.
 - Se houver conflito com guidelines, conforme caminhos no config do
   contexto, pausar e pedir alinhamento.
-- Implementacao durante contexto de track/slice so pode ocorrer via `sld-slice-implement` com tasks previamente planejadas.
-- Fora de `sld-slice-implement`, permitir apenas planejamento, clarificacao, check, documentacao e ajustes livres explicitamente permitidos no fluxo.
-- Excecao: implementacao fora de `sld-slice-implement` somente com ordem e confirmacao explicita do desenvolvedor no prompt atual.
+- Implementacao durante contexto de track/slice so pode ocorrer via `sld-slice-implement` com tasks previamente planejadas, via `sld-slice-one-shot`, ou via `sld-slice-increment` sobre uma slice existente.
+- Fora de `sld-slice-implement`, permitir implementacao somente por
+  `sld-slice-one-shot` ou `sld-slice-increment`; as demais acoes ficam
+  restritas a planejamento, clarificacao, check, documentacao e ajustes livres
+  explicitamente permitidos no fluxo.
+- Excecao: implementacao fora de `sld-slice-implement`, `sld-slice-one-shot`
+  e `sld-slice-increment` somente com ordem e confirmacao explicita do
+  desenvolvedor no prompt atual.
 
 ## Uso das skills com IA
 

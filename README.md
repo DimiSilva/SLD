@@ -5,22 +5,36 @@ desenhado para projetos de qualquer natureza, não apenas software: uma track
 define uma direção evolutiva, um slice entrega um avanço pequeno e verificável,
 e tasks organizam a execução.
 
-## Instalar em um projeto
+## Instalação
 
-Na raiz do projeto consumidor:
+Na raiz do projeto consumidor, execute:
 
 ```bash
 /caminho/para/sld/install.sh
 ```
 
-Para instalar em uma pasta específica:
+O framework será instalado em `./.sld`, e os artefatos de trabalho serão
+criados nos caminhos definidos por `.sld/config.yaml`.
+
+### Instalação em um path personalizado
+
+Use `SLD_TARGET_DIR` para informar a raiz do projeto consumidor. O instalador
+cria o framework em `<path>/.sld`:
 
 ```bash
-SLD_TARGET_DIR=/caminho/para/projeto \
+SLD_TARGET_DIR=/caminho/para/meu-projeto \
   /caminho/para/sld/install.sh
 ```
 
-O framework será instalado em `/caminho/para/projeto/.sld`.
+Também é possível combinar o path personalizado com a instalação remota:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/DimiSilva/SLD/trunk/install.sh \
+  | SLD_TARGET_DIR=/caminho/para/meu-projeto \
+    SLD_GITHUB_REPO=DimiSilva/SLD bash
+```
+
+Nesse caso, o resultado será `/caminho/para/meu-projeto/.sld`.
 
 Também é possível instalar diretamente do repositório oficial no GitHub:
 
@@ -97,7 +111,13 @@ curl -fsSL https://raw.githubusercontent.com/DimiSilva/SLD/trunk/scripts/core/up
 ```
 
 Sem `SLD_TARGET_DIR`, tanto a instalação quanto a atualização usam o
-diretório atual como raiz do projeto consumidor.
+diretório atual como raiz do projeto consumidor. Para atualizar uma instalação
+em outro projeto:
+
+```bash
+SLD_TARGET_DIR=/caminho/para/meu-projeto \
+  /caminho/para/meu-projeto/.sld/scripts/core/update-sld.sh
+```
 
 `SLD_TARGET_DIR` normalmente é a raiz do projeto. O atualizador também aceita
 diretamente o caminho da instalação, como `./ai/frameworks/.sld`.
@@ -139,7 +159,9 @@ SLD_TRACKS_ROOT=work/tracks /caminho/para/sld/install.sh
 - `SLD_TRACKS_ROOT`, `SLD_GUIDELINES_ROOT`, `SLD_EXAMPLES_ROOT`: personalizam os caminhos iniciais no `config.yaml`.
 - `SLD_CUSTOM_ROOT`: caminho das customizações SLD. Padrão: `.sld/custom`.
 
-## Fluxo atual
+## Fluxos de execução
+
+### Fluxo planejado
 
 ```text
 sld-track-create -> (ajustes livres) -> [sld-track-clarify, opcional]
@@ -148,6 +170,31 @@ sld-track-create -> (ajustes livres) -> [sld-track-clarify, opcional]
 -> sld-slice-plan-tasks -> (ajustes livres) -> sld-slice-implement
 -> (ajustes livres) -> sld-slice-close -> checks -> próxima slice
 ```
+
+`sld-slice-implement` sempre atua sobre tasks planejadas.
+
+### Fluxo one-shot
+
+Para um ajuste pequeno sem slice preparada:
+
+```text
+sld-slice-one-shot -> sld-slice-close -> checks
+```
+
+Essa skill cria a slice quando necessário, gera um plano compacto, implementa
+e deixa o fechamento para `sld-slice-close`.
+
+### Fluxo incremental
+
+Para evoluir uma slice existente em pequenos incrementos:
+
+```text
+sld-slice-create -> sld-slice-increment -> sld-slice-increment -> ...
+-> sld-slice-close -> checks
+```
+
+Cada chamada de `sld-slice-increment` executa um único incremento e registra o
+resultado no `Increment Log`. Ela não exige `sld-slice-plan-tasks`.
 
 As skills de clarify são opcionais e dependem da complexidade da feature e da
 clareza do operador. Os ajustes livres podem ser usados entre as etapas.

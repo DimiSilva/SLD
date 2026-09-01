@@ -11,7 +11,7 @@ status=0
 
 base_skills=(
   track-create track-clarify slice-create slice-split slice-clarify
-  slice-plan-tasks slice-implement slice-close track-check slice-check
+  slice-one-shot slice-increment slice-plan-tasks slice-implement slice-close track-check slice-check
   retro example track-roadmap-objectives track-roadmap-slices
   learning-consolidate
 )
